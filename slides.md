@@ -33,7 +33,330 @@ css: unocss
 </div>
 
 ---
+
 # History of Deployment
+Some of the deployment methods are still in use, but not as much as before.
+
+> Dates are showing when it became a mainstream/hyped
+
+<div class="relative mt-20 border-s-2 border-slate-200 pl-4 ms-4 text-slate-200">
+  <div class="mb-10 ms-4">
+    <span class="absolute -start-[9px] top-1 flex h-4 w-4 items-center justify-center rounded-full ring-8 bg-blue-600 ring-blue-100">
+      <span class="sr-only">Current</span>
+    </span>
+    <time class="mb-1 block text-sm font-medium">🗓️ 1990s – Early 2000s</time>
+    <h2 class="text-lg font-semibold text-blue-400">Manual Upload (FTP / SFTP)</h2>
+    <p class="mt-2">Upload static/dynamic files directly to a server. HTML, PHP, etc.</p>
+    <div class="grid grid-cols-2 gap-4 mt-4 border-t border-dashed border-slate-600 pt-2">
+      <div>
+        <strong class="block text-green-600 font-black">Pros:</strong> 
+        Simple, no special tools needed.
+      </div>
+      <div>
+        <strong class="block text-red-600 font-black">Cons:</strong>
+        Error-prone, no version control, hard to roll back.
+      </div>
+    </div>
+  </div>
+  <div class="mb-10 ms-4 opacity-20"><time class="mb-1 block text-sm font-medium">🗓️ Early 2000s</time><h3 class="text-lg font-semibold">Control Panel Hosting (cPanel / Plesk)</h3><p class="mt-2">GUI for files, databases, domains. Beginner-friendly, limited flexibility.</p></div>
+  <div class="mb-10 ms-4 opacity-20"><time class="mb-1 block text-sm font-medium">🗓️ Mid 2000s</time><h3 class="text-lg font-semibold">SSH &amp; Rsync Deployments</h3><p class="mt-2">Upload via scp/rsync and restart services. More control, still manual.</p></div>
+  <div class="mb-10 ms-4 opacity-20"><time class="mb-1 block text-sm font-medium">🗓️ Late 2000s</time><h3 class="text-lg font-semibold">Scripted Deployments (Capistrano/Fabric)</h3><p class="mt-2">Repeatable releases; server-centric, not elastic.</p></div>
+  <div class="mb-10 ms-4 opacity-20"><time class="mb-1 block text-sm font-medium">🗓️ 2010s</time><h3 class="text-lg font-semibold">CI/CD Pipelines (Jenkins/GitHub Actions/GitLab CI)</h3><p class="mt-2">Automated build/test/deploy from Git.</p></div>
+  <div class="mb-10 ms-4 opacity-20"><time class="mb-1 block text-sm font-medium">🗓️ 2010s</time><h3 class="text-lg font-semibold">PaaS (Heroku/Render/Vercel/Netlify)</h3><p class="mt-2">Git-push deploys, autoscaling, managed SSL.</p></div>
+  <div class="mb-10 ms-4 opacity-20"><time class="mb-1 block text-sm font-medium">🗓️ 2014+</time><h3 class="text-lg font-semibold">Containerized Single-Server (Docker + Reverse Proxy)</h3><p class="mt-2">Portable images, consistent envs; manual scaling.</p></div>
+  <div class="mb-10 ms-4 opacity-20"><time class="mb-1 block text-sm font-medium">🗓️ 2015+</time><h3 class="text-lg font-semibold">Container Orchestration (Docker Swarm/Kubernetes)</h3><p class="mt-2">Cluster scheduling, rollouts; complex.</p></div>
+  <div class="mb-2 ms-4 opacity-20"><time class="mb-1 block text-sm font-medium">🗓️ 2018+</time><h3 class="text-lg font-semibold">Cloud-Native &amp; Serverless (Cloud Run/App Runner/Azure Web Apps)</h3><p class="mt-2">Run containers/functions; autoscale, pay-per-use.</p></div>
+</div>
+
+---
+
+<div class="relative border-s-2 border-slate-200 pl-4 ms-4 text-slate-200">
+  <div class="mb-6 opacity-20"><time class="mb-1 block text-sm font-medium">Manual Upload (FTP / SFTP)</time></div>
+
+  <div class="mb-10 ms-4">
+    <span class="absolute -start-2.5 flex h-4 w-4 items-center justify-center rounded-full ring-8 bg-blue-600 ring-blue-100">
+      <span class="sr-only">Current</span>
+    </span>
+    <time class="mb-1 block text-sm font-medium">🗓️ Early 2000s</time>
+    <h2 class="text-lg font-semibold text-blue-400">Control Panel Hosting (cPanel / Plesk)</h2>
+    <p class="mt-2">GUI for files, databases, domains.</p>
+     <div class="grid grid-cols-2 gap-4 mt-4 border-t border-dashed border-slate-600 pt-2">
+        <div>
+          <strong class="block text-green-600 font-black">Pros:</strong> 
+          Beginner-friendly, integrated tools.
+        </div>
+        <div>
+          <strong class="block text-red-600 font-black">Cons:</strong>
+          Limited flexibility, tied to shared hosting.
+        </div>
+      </div>
+  </div>
+  <div class="mb-10 ms-4 opacity-20"><time class="mb-1 block text-sm font-medium">🗓️ Mid 2000s</time><h3 class="text-lg font-semibold">SSH &amp; Rsync Deployments</h3><p class="mt-2">Upload via scp/rsync; still manual.</p></div>
+  <div class="mb-10 ms-4 opacity-20"><time class="mb-1 block text-sm font-medium">🗓️ Late 2000s</time><h3 class="text-lg font-semibold">Scripted Deployments (Capistrano/Fabric)</h3><p class="mt-2">Repeatable releases; server-centric.</p></div>
+  <div class="mb-10 ms-4 opacity-20"><time class="mb-1 block text-sm font-medium">🗓️ 2010s</time><h3 class="text-lg font-semibold">CI/CD Pipelines</h3><p class="mt-2">Automated build/test/deploy.</p></div>
+  <div class="mb-10 ms-4 opacity-20"><time class="mb-1 block text-sm font-medium">🗓️ 2010s</time><h3 class="text-lg font-semibold">PaaS</h3><p class="mt-2">Git-push deploys, autoscaling.</p></div>
+  <div class="mb-10 ms-4 opacity-20"><time class="mb-1 block text-sm font-medium">🗓️ 2014+</time><h3 class="text-lg font-semibold">Containerized Single-Server</h3><p class="mt-2">Portable images; manual scaling.</p></div>
+  <div class="mb-10 ms-4 opacity-20"><time class="mb-1 block text-sm font-medium">🗓️ 2015+</time><h3 class="text-lg font-semibold">Container Orchestration</h3><p class="mt-2">Clusters & rollouts; complex.</p></div>
+  <div class="mb-2 ms-4  opacity-20"><time class="mb-1 block text-sm font-medium">🗓️ 2018+</time><h3 class="text-lg font-semibold">Cloud-Native & Serverless</h3><p class="mt-2">Autoscale; pay-per-use.</p></div>
+</div>
+
+---
+
+<div class="relative border-s-2 border-slate-200 pl-4 ms-4 text-slate-200">
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm font-medium">Manual Upload (FTP / SFTP)</time></div>
+  <div class="mb-6 opacity-20"><time class="mb-1 block text-sm font-medium">Control Panel Hosting (cPanel / Plesk)</time></div>
+
+  <div class="mb-10 ms-4">
+    <span class="absolute -start-2.5 flex h-4 w-4 items-center justify-center rounded-full ring-8 bg-blue-600 ring-blue-100">
+      <span class="sr-only">Current</span>
+    </span>
+    <time class="mb-1 block text-sm font-medium">🗓️ Mid 2000s</time>
+    <h2 class="text-lg font-semibold text-blue-400">SSH &amp; Rsync Deployments</h2>
+    <p class="mt-2">Upload via `scp`/`rsync` and restart services.</p>
+     <div class="grid grid-cols-2 gap-4 mt-4 border-t border-dashed border-slate-600 pt-2">
+        <div>
+          <strong class="block text-green-600 font-black">Pros:</strong> 
+          More control, secure.
+        </div>
+        <div>
+          <strong class="block text-red-600 font-black">Cons:</strong>
+          Still manual, inconsistent across environments.
+        </div>
+     </div>
+  </div>
+  <div class="mb-10 ms-4 opacity-20"><time class="mb-1 block text-sm font-medium">🗓️ Late 2000s</time><h3 class="text-lg font-semibold">Scripted Deployments</h3><p class="mt-2">Repeatable releases.</p></div>
+  <div class="mb-10 ms-4 opacity-20"><time class="mb-1 block text-sm font-medium">🗓️ 2010s</time><h3 class="text-lg font-semibold">CI/CD Pipelines</h3><p class="mt-2">Automated pipelines.</p></div>
+  <div class="mb-10 ms-4 opacity-20"><time class="mb-1 block text-sm font-medium">🗓️ 2010s</time><h3 class="text-lg font-semibold">PaaS</h3><p class="mt-2">Git-push deploys.</p></div>
+  <div class="mb-10 ms-4 opacity-20"><time class="mb-1 block text-sm font-medium">🗓️ 2014+</time><h3 class="text-lg font-semibold">Containerized Single-Server</h3><p class="mt-2">Portable images.</p></div>
+  <div class="mb-10 ms-4 opacity-20"><time class="mb-1 block text-sm font-medium">🗓️ 2015+</time><h3 class="text-lg font-semibold">Container Orchestration</h3><p class="mt-2">Clusters & rollouts.</p></div>
+  <div class="mb-2 ms-4  opacity-20"><time class="mb-1 block text-sm font-medium">🗓️ 2018+</time><h3 class="text-lg font-semibold">Cloud-Native & Serverless</h3><p class="mt-2">Autoscale; pay-per-use.</p></div>
+</div>
+
+---
+
+<div class="relative border-s-2 border-slate-200 pl-4 ms-4 text-slate-200">
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm font-medium">Manual Upload (FTP / SFTP)</time></div>
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm font-medium">Control Panel Hosting (cPanel / Plesk)</time></div>
+  <div class="mb-5 opacity-20"><time class="mb-1 block text-sm font-medium">SSH &amp; Rsync Deployments</time></div>
+
+  <div class="mb-10 ms-4">
+    <span class="absolute -start-2.5 flex h-4 w-4 items-center justify-center rounded-full ring-8 bg-blue-600 ring-blue-100"><span class="sr-only">Current</span></span>
+    <time class="mb-1 block text-sm font-medium">🗓️ Late 2000s</time>
+    <h2 class="text-lg font-semibold text-blue-400">Scripted Deployments</h2>
+    <p class="mt-2">Prevented repeated work (Custom Bash scripts/Capistrano/Fabric)</p>
+    <div class="grid grid-cols-2 gap-4 mt-4 border-t border-dashed border-slate-600 pt-2">
+        <div>
+          <strong class="block text-green-600 font-black">Pros:</strong> 
+          Repeatable releases, basic automation. (symlinks, shared dirs)
+        </div>
+        <div>
+          <strong class="block text-red-600 font-black">Cons:</strong>
+          Server-centric and harder to scale.
+        </div>
+      </div>
+  </div>
+
+  <div class="mb-10 ms-4 opacity-20"><time class="mb-1 block text-sm">2010s</time><h3 class="text-lg font-semibold">CI/CD Pipelines</h3></div>
+  <div class="mb-10 ms-4 opacity-20"><time class="mb-1 block text-sm">2010s</time><h3 class="text-lg font-semibold">PaaS</h3></div>
+  <div class="mb-10 ms-4 opacity-20"><time class="mb-1 block text-sm">2014+</time><h3 class="text-lg font-semibold">Containerized Single-Server</h3></div>
+  <div class="mb-10 ms-4 opacity-20"><time class="mb-1 block text-sm">2015+</time><h3 class="text-lg font-semibold">Container Orchestration</h3></div>
+  <div class="mb-2 ms-4  opacity-20"><time class="mb-1 block text-sm">2018+</time><h3 class="text-lg font-semibold">Cloud-Native & Serverless</h3></div>
+</div>
+
+---
+
+<div class="relative border-s-2 border-slate-200 pl-4 ms-4 text-slate-200">
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm font-medium">Manual Upload (FTP / SFTP)</time></div>
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm font-medium">Control Panel Hosting (cPanel / Plesk)</time></div>
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm font-medium">SSH &amp; Rsync Deployments</time></div>
+  <div class="mb-5 opacity-20"><time class="mb-1 block text-sm font-medium">Scripted Deployments (Capistrano/Fabric)</time></div>
+  <div class="mb-10 ms-4">
+    <span class="absolute -start-2.5 flex h-4 w-4 items-center justify-center rounded-full ring-8 bg-blue-600 ring-blue-100"><span class="sr-only">Current</span></span>
+    <time class="mb-1 block text-sm font-medium">🗓️ 2010+</time>
+    <h2 class="text-lg font-semibold text-blue-400">CI/CD Pipelines (Jenkins/GitHub Actions/GitLab CI)</h2>
+    <p class="mt-2">Automated build/test/deploy from Git. Reproducible with approvals and rollbacks.</p>
+    <div class="grid grid-cols-2 gap-4 mt-4 border-t border-dashed border-slate-600 pt-2">
+      <div>
+        <strong class="block text-green-600 font-black">Pros:</strong> 
+        Automated, reproducible, integrates with pipelines.
+      </div>
+      <div>
+        <strong class="block text-red-600 font-black">Cons:</strong>
+        Setup & maintenance needed.
+      </div>
+    </div>
+  </div>
+  <div class="mb-10 ms-4 opacity-20"><time class="mb-1 block text-sm">2010s</time><h3 class="text-lg font-semibold">PaaS</h3></div>
+  <div class="mb-10 ms-4 opacity-20"><time class="mb-1 block text-sm">2014+</time><h3 class="text-lg font-semibold">Containerized Single-Server</h3></div>
+  <div class="mb-10 ms-4 opacity-20"><time class="mb-1 block text-sm">2015+</time><h3 class="text-lg font-semibold">Container Orchestration</h3></div>
+  <div class="mb-2 ms-4  opacity-20"><time class="mb-1 block text-sm">2018+</time><h3 class="text-lg font-semibold">Cloud-Native & Serverless</h3></div>
+</div>
+
+---
+
+<div class="relative border-s-2 border-slate-200 pl-4 ms-4 text-slate-200">
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm font-medium">Manual Upload (FTP / SFTP)</time></div>
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm font-medium">Control Panel Hosting (cPanel / Plesk)</time></div>
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm font-medium">SSH &amp; Rsync Deployments</time></div>
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm font-medium">Scripted Deployments (Capistrano/Fabric)</time></div>
+  <div class="mb-6 opacity-20"><time class="mb-1 block text-sm">CI/CD Pipelines (Jenkins/GitHub Actions/GitLab CI)</time></div>
+  <div class="mb-10 ms-4">
+    <span class="absolute -start-2.5 flex h-4 w-4 items-center justify-center rounded-full ring-8 bg-blue-600 ring-blue-100"><span class="sr-only">Current</span></span>
+    <time class="mb-1 block text-sm font-medium">🗓️ 2013+</time>
+    <h2 class="text-lg font-semibold text-blue-400">PaaS (Heroku/Render/Vercel/Netlify)</h2>
+    <p class="mt-2">Rely on platforms to manage deployment End-To-End</p>
+    <div class="grid grid-cols-2 gap-4 mt-4 border-t border-dashed border-slate-600 pt-2">
+      <div>
+        <strong class="block text-green-600 font-black">Pros:</strong> 
+        Git push to deploy, autoscaling, managed SSL.
+      </div>
+      <div>
+        <strong class="block text-red-600 font-black">Cons:</strong>
+        Vendor lock-in, limited low-level control.
+      </div>
+    </div>
+  </div>
+  <div class="mb-10 ms-4 opacity-20"><time class="mb-1 block text-sm">2014+</time><h3 class="text-lg font-semibold">Containerized Single-Server</h3></div>
+  <div class="mb-10 ms-4 opacity-20"><time class="mb-1 block text-sm">2015+</time><h3 class="text-lg font-semibold">Container Orchestration</h3></div>
+  <div class="mb-2 ms-4  opacity-20"><time class="mb-1 block text-sm">2018+</time><h3 class="text-lg font-semibold">Cloud-Native & Serverless</h3></div>
+</div>
+
+---
+
+<div class="relative border-s-2 border-slate-200 pl-4 ms-4 text-slate-200">
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm font-medium">Manual Upload (FTP / SFTP)</time></div>
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm font-medium">Control Panel Hosting (cPanel / Plesk)</time></div>
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm font-medium">SSH &amp; Rsync Deployments</time></div>
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm font-medium">Scripted Deployments (Capistrano/Fabric)</time></div>
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm">CI/CD Pipelines (Jenkins/GitHub Actions/GitLab CI)</time></div>
+  <div class="mb-6 opacity-20"><time class="mb-1 block text-sm">PaaS (Heroku/Render/Vercel/Netlify)</time></div>
+  <div class="mb-10 ms-4">
+    <span class="absolute -start-2.5 flex h-4 w-4 items-center justify-center rounded-full ring-8 bg-blue-600 ring-blue-100"><span class="sr-only">Current</span></span>
+    <time class="mb-1 block text-sm font-medium">🗓️ 2014+</time>
+    <h2 class="text-lg font-semibold text-blue-400">Containerized Single-Server (Docker + Reverse Proxy)</h2>
+    <p class="mt-2">Build docker images, push them and pull in server</p>
+    <div class="grid grid-cols-2 gap-4 mt-4 border-t border-dashed border-slate-600 pt-2">
+      <div>
+        <strong class="block text-green-600 font-black">Pros:</strong> 
+        Portable images, consistent environments.
+      </div>
+      <div>
+        <strong class="block text-red-600 font-black">Cons:</strong>
+        Manual scaling/orchestration across hosts.
+      </div>
+    </div>
+  </div>
+  <div class="mb-10 ms-4 opacity-20"><time class="mb-1 block text-sm">2015+</time><h3 class="text-lg font-semibold">Container Orchestration</h3></div>
+  <div class="mb-2 ms-4  opacity-20"><time class="mb-1 block text-sm">2018+</time><h3 class="text-lg font-semibold">Cloud-Native & Serverless</h3></div>
+</div>
+
+---
+
+<div class="relative border-s-2 border-slate-200 pl-4 ms-4 text-slate-200">
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm font-medium">Manual Upload (FTP / SFTP)</time></div>
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm font-medium">Control Panel Hosting (cPanel / Plesk)</time></div>
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm font-medium">SSH &amp; Rsync Deployments</time></div>
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm font-medium">Scripted Deployments (Capistrano/Fabric)</time></div>
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm">CI/CD Pipelines (Jenkins/GitHub Actions/GitLab CI)</time></div>
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm">PaaS (Heroku/Render/Vercel/Netlify)</time></div>
+  <div class="mb-6 opacity-20"><time class="mb-1 block text-sm">Containerized Single-Server</time></div>
+  <div class="mb-10 ms-4">
+    <span class="absolute -start-2.5 flex h-4 w-4 items-center justify-center rounded-full ring-8 bg-blue-600 ring-blue-100"><span class="sr-only">Current</span></span>
+    <time class="mb-1 block text-sm font-medium">🗓️ 2015 – 2018 hype</time>
+    <h2 class="text-lg font-semibold text-blue-400">Docker Swarm</h2>
+    <p class="mt-2">Docker's native clustering and orchestration tool.</p>
+    <div class="grid grid-cols-2 gap-4 mt-4 border-t border-dashed border-slate-600 pt-2">
+      <div>
+        <strong class="block text-green-600 font-black">Pros:</strong> 
+        Integrated with Docker, simple setup.
+      </div>
+      <div>
+        <strong class="block text-red-600 font-black">Cons:</strong>
+        Limited ecosystem, Community shifted to Kubernetes
+      </div>
+    </div>
+  </div>
+  <div class="mb-2 ms-4  opacity-20"><time class="mb-1 block text-sm">2014 launch, mainstream from 2016+</time><h3 class="text-lg font-semibold">Kubernetes</h3></div>
+</div>
+
+---
+
+<div class="relative border-s-2 border-slate-200 pl-4 ms-4 text-slate-200">
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm font-medium">Control Panel Hosting (cPanel / Plesk)</time></div>
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm font-medium">SSH &amp; Rsync Deployments</time></div>
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm font-medium">Scripted Deployments (Capistrano/Fabric)</time></div>
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm">CI/CD Pipelines (Jenkins/GitHub Actions/GitLab CI)</time></div>
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm">PaaS (Heroku/Render/Vercel/Netlify)</time></div>
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm">Containerized Single-Server</time></div>
+  <div class="mb-6 opacity-20"><time class="mb-1 block text-sm">Docker Swarm (2015 hype, adoption decline after 2018)</time></div>
+  <div class="mb-5 ms-4">
+    <span class="absolute -start-2.5 flex h-4 w-4 items-center justify-center rounded-full ring-8 bg-blue-600 ring-blue-100"><span class="sr-only">Current</span></span>
+    <time class="mb-1 block text-sm font-medium">🗓️ 2014 launch, mainstream from 2016+</time>
+    <h2 class="text-lg font-semibold text-blue-400">Kubernetes</h2>
+    <p class="mt-2">A powerful container orchestration platform.</p>
+    <div class="grid grid-cols-2 gap-4 mt-4 border-t border-dashed border-slate-600 pt-2">
+      <div>
+        <strong class="block text-green-600 font-black">Pros:</strong> 
+        Highly scalable, self-healing, microservices-ready, supports complex deployments, strong community, cloud-native standard.
+      </div>
+      <div>
+        <strong class="block text-red-600 font-black">Cons:</strong>
+        Steep learning curve, a bit more complex setup.
+      </div>
+    </div>
+  </div>
+  <div class="mb-2 ms-4  opacity-20"><time class="mb-1 block text-sm">2018+</time><h3 class="text-lg font-semibold">Cloud-Native & Serverless</h3></div>
+</div>
+
+---
+
+<div class="relative border-s-2 border-slate-200 pl-4 ms-4 text-slate-200">
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm font-medium">SSH &amp; Rsync Deployments</time></div>
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm font-medium">Scripted Deployments (Capistrano/Fabric)</time></div>
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm">CI/CD Pipelines (Jenkins/GitHub Actions/GitLab CI)</time></div>
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm">PaaS (Heroku/Render/Vercel/Netlify)</time></div>
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm">Containerized Single-Server</time></div>
+  <div class="mb-2 opacity-20"><time class="mb-1 block text-sm">Docker Swarm (2015 hype, adoption decline after 2018)</time></div>
+  <div class="mb-6 opacity-20"><time class="mb-1 block text-sm">Kubernetes (popularized 2016+, still the de facto standard)</time></div>
+  <div class="mb-2 ms-4">
+    <span class="absolute -start-2.5 flex h-4 w-4 items-center justify-center rounded-full ring-8 bg-blue-600 ring-blue-100"><span class="sr-only">Current</span></span>
+    <time class="mb-1 block text-sm font-medium">🗓️ 2018+</time>
+    <h2 class="text-lg font-semibold text-blue-400">Cloud-Native &amp; Serverless</h2>
+    <p class="mt-2">Run containers/functions without managing servers. <br/>
+      <span class="rounded bg-slate-200 text-black text-xs p-2 mt-4 inline-block mr-2">Google Cloud Run</span>
+      <span class="rounded bg-slate-200 text-black text-xs p-2 mt-4 inline-block mr-2">AWS App Runner</span>
+      <span class="rounded bg-slate-200 text-black text-xs p-2 mt-4 inline-block mr-2">Azure Web Apps</span>
+    </p>
+    <div class="grid grid-cols-2 gap-4 mt-4 border-t border-dashed border-slate-600 pt-2">
+      <div>
+        <strong class="block text-green-600 font-black">Pros:</strong> 
+        Scales automatically, pay-per-use.
+      </div>
+      <div>
+        <strong class="block text-red-600 font-black">Cons:</strong>
+        Vendor-specific, less control over infra.
+      </div>
+    </div>
+  </div>
+</div>
+
+---
+
+# Cloudflare Workers
+> A serverless platform for building and deploying applications at the edge.
+
+![cloudflare-workers.png](./public/cloudflare-workers.png)
+
+
+--- 
+
+<div class="flex h-full items-center justify-center">
+  <div class="text-center">
+    <h1 class="text-4xl font-bold mb-4">There are even more ways to deploy!</h1>
+    <div class="text-lg text-gray-400 block">but these are the most common ones.</div>
+  </div>
+</div>
+
 
 
 ---
@@ -164,10 +487,6 @@ What is not really required from you, but if you have it, it is a plus:
 
 
 </div>
-
----
-
-https://blog.cloudflare.com/full-stack-development-on-cloudflare-workers/
 
 ---
 
@@ -635,7 +954,7 @@ layout: default
 
 # 🐳 Build & Push Docker App
 
-## Step 1: Fork Template Repository
+## Step 1: Fork TempLate Repository
 
 <v-clicks>
 
