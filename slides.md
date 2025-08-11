@@ -34,6 +34,116 @@ css: unocss
 
 ---
 
+
+# 📅 Workshop Schedule
+
+<div class="grid grid-cols-5 mt-12 gap-6 text-sm">
+
+<div class="col-span-2">
+
+<header class="my-4 flex items-center gap-2">
+  <span class="text-2xl inline-flex h-8 w-8 items-center justify-center rounded-xl bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300">🌅</span>
+  <h3 class="text-lg font-semibold">Morning Sessions</h3>
+</header>
+
+- 🚀 **09:00-09:50** Kickoff & Requirements
+- ☕️ **09:50-10:00** Coffee Break
+- 🔒 **10:00-10:50** Domain and Server Setup
+- ☕️ **10:50-11:00** Coffee Break
+- ⚙️ **11:00-12:00** Install Kubernetes
+
+</div>
+
+<div class="flex flex-col">
+  <h4 class="text-lg font-semibold">Lunch Break</h4>
+  <img src="/public/lunch.png" class="max-w-full h-auto rounded-lg mt-2" alt="Lunch Break" />
+</div>
+
+<div class="col-span-2">
+
+<header class="mb-4 flex items-center gap-2">
+  <span class="text-2xl inline-flex h-8 w-8 items-center justify-center rounded-xl bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-300">🌇</span>
+  <h3 class="text-lg font-semibold">Afternoon Sessions</h3>
+</header>
+
+- 🐳 **13:00-13:45** Build & Push Docker App
+- 🚀 **13:45-14:30** Deploy to Kubernetes
+- 🔐 **14:30-15:15** Add HTTPS with cert-manager
+- 🤖 **15:15-16:00** Set Up CI/CD
+- 📊 **16:00-16:30** Monitoring & Logs
+- 💬 **16:30-17:00** Wrap-Up & Q&A
+
+</div>
+
+</div>
+
+---
+layout: section
+class: text-center
+---
+
+# 🚀
+Session 1
+# Kickoff & Requirements
+
+**09:00 – 09:50**
+
+---
+
+# Why this workshop?
+> Why do we need to learn about Deployment, Kubernetes, Docker, and Linux?
+
+<br/>
+
+<v-clicks>
+
+- 🛠 **Market Needs**: Kubernetes, Docker, Linux are the industry standard for deployment.
+- 🚀 **Hands-On Experience**: Learn by doing, not just theory.
+- 🌐 **Full Stack**: From domain to deployment, cover the entire lifecycle.
+- 🤖 **CI/CD**: Automate your deployments with GitHub Actions.
+- 💡 **Real-World Skills**: Gain practical skills that employers value.
+- 🎯 **Goal-Oriented**: You'll have a fully deployed app with CI/CD.
+
+</v-clicks>
+
+
+---
+
+# 🎯 Workshop Goal
+
+By the end of this full-day, hands-on workshop, each participant will have:
+
+
+<br/>
+
+<v-click>
+
+- ✅ **A domain/subdomain configured** (Name.com and Cloudflare)
+- ✅ **A working Ubuntu Server, secured** (via Hetzner, digitalocean, or etc)
+- 🛡️ **A Local Kubernetes cluster** (OrbStack or k3s)
+- 🔒 **A secure remote Kubernetes cluster**
+- 🚀 **A deployed nextjs app** (Server side rendered)
+- 🤖 **A functioning CI/CD pipeline** (auto-deployments of your app)
+
+</v-click>
+
+<br>
+
+<v-click>
+
+
+<div class="flex flex-col justify-start gap-2 text-sm bg-gray-900 p-2 border-l-4 border-solid border-gray-300 rounded">
+  <h4>This is a hands-on workshop!</h4>
+  <div class="flex gap-2 items-center">
+     Try to follow up each step and get the most out of it.
+     <img class="w-6" src="https://em-content.zobj.net/source/microsoft-teams/363/winking-face_1f609.png" />
+  </div>
+</div>
+
+</v-click>
+
+---
+
 # History of Deployment
 Some of the deployment methods are still in use, but not as much as before.
 
@@ -292,7 +402,10 @@ Some of the deployment methods are still in use, but not as much as before.
   <div class="mb-5 ms-4">
     <span class="absolute -start-2.5 flex h-4 w-4 items-center justify-center rounded-full ring-8 bg-blue-600 ring-blue-100"><span class="sr-only">Current</span></span>
     <time class="mb-1 block text-sm font-medium">🗓️ 2014 launch, mainstream from 2016+</time>
-    <h2 class="text-lg font-semibold text-blue-400">Kubernetes</h2>
+    <div class="flex items-center gap-12 w-full justify-between">
+      <h2 class="text-lg font-semibold text-blue-400 m-0 p-0">Kubernetes </h2>     
+      <span class="rounded bg-green-300 text-black text-xs p-2 inline-block mr-2">This workshop main focus!</span>
+    </div>
     <p class="mt-2">A powerful container orchestration platform.</p>
     <div class="grid grid-cols-2 gap-4 mt-4 border-t border-dashed border-slate-600 pt-2">
       <div>
@@ -356,62 +469,6 @@ Some of the deployment methods are still in use, but not as much as before.
     <div class="text-lg text-gray-400 block">but these are the most common ones.</div>
   </div>
 </div>
-
-
-
----
-
-# Why this workshop?
-> Why do we need to learn about Deployment, Kubernetes, Docker, and Linux?
-
-<br/>
-
-<v-clicks>
-
-- 🛠 **Market Needs**: Kubernetes, Docker, Linux are the industry standard for deployment.
-- 🚀 **Hands-On Experience**: Learn by doing, not just theory.
-- 🌐 **Full Stack**: From domain to deployment, cover the entire lifecycle.
-- 🤖 **CI/CD**: Automate your deployments with GitHub Actions.
-- 💡 **Real-World Skills**: Gain practical skills that employers value.
-- 🎯 **Goal-Oriented**: You'll have a fully deployed app with CI/CD.
-
-</v-clicks>
-
-
----
-
-# 🎯 Workshop Goal
-
-By the end of this full-day, hands-on workshop, each participant will have:
-
-
-<br/>
-
-<v-click>
-
-- ✅ **A domain/subdomain configured** (Name.com and Cloudflare)
-- ✅ **A working Ubuntu Server, secured** (via Hetzner, digitalocean, or etc)
-- 🛡️ **A Local Kubernetes cluster** (OrbStack or k3s)
-- 🔒 **A secure remote Kubernetes cluster** 
-- 🚀 **A deployed nextjs app** (Server side rendered)
-- 🤖 **A functioning CI/CD pipeline** (auto-deployments of your app)
-
-</v-click>
-
-<br>
-
-<v-click>
-
-
-<div class="flex flex-col justify-start gap-2 text-sm bg-gray-900 p-2 border-l-4 border-solid border-gray-300 rounded">
-  <h4>This is a hands-on workshop!</h4>
-  <div class="flex gap-2 items-center">
-     Try to follow up each step and get the most out of it.
-     <img class="w-6" src="https://em-content.zobj.net/source/microsoft-teams/363/winking-face_1f609.png" />
-  </div>
-</div>
-
-</v-click>
 
 ---
 layout: two-cols
@@ -488,49 +545,6 @@ What is not really required from you, but if you have it, it is a plus:
 
 </div>
 
----
-
-# 📅 Workshop Schedule
-
-<div class="grid grid-cols-2 gap-6 text-sm">
-
-<div>
-
-**Morning Sessions**
-- 🚀 **09:00-09:30** Kickoff & Environment Check
-- 🌐 **09:30-10:15** Provision Domain & Server  
-- 🔒 **10:15-11:00** Secure the Server
-- ⚙️ **11:00-12:00** Install Kubernetes (k3s)
-- 🍕 **12:00-13:00** Lunch Break
-
-</div>
-
-<div>
-
-**Afternoon Sessions**
-- 🐳 **13:00-13:45** Build & Push Docker App
-- 🚀 **13:45-14:30** Deploy to Kubernetes
-- 🔐 **14:30-15:15** Add HTTPS with cert-manager
-- 🤖 **15:15-16:00** Set Up CI/CD
-- 📊 **16:00-16:30** Monitoring & Logs
-- 💬 **16:30-17:00** Wrap-Up & Q&A
-
-</div>
-
-</div>
-
----
-layout: section
-class: text-center
----
-
-# 🚀 Session 1: Kickoff & Environment Check
-**09:00 – 09:30**
-
-Let's make sure everyone is ready to ship!
-
----
-layout: default
 ---
 
 # 🚀 Kickoff & Environment Check
