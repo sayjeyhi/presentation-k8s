@@ -1724,10 +1724,12 @@ layout: section
 class: text-center
 ---
 
-# 🔐 Session 7: Add HTTPS with cert-manager
-**14:30 – 15:15**
+### 🔐 Step 7
+# Add HTTPS with cert-manager
 
 Let's secure our app with automatic SSL certificates!
+
+**14:30 – 15:15**
 
 ---
 
@@ -1886,10 +1888,12 @@ layout: section
 class: text-center
 ---
 
-# 🤖 Session 8: Set Up CI/CD
-**15:15 – 16:00**
+### 🤖 Step 8
+# Set Up CI/CD
 
 Automate all the things!
+
+**15:15 – 16:00**
 
 ---
 
@@ -2038,10 +2042,12 @@ layout: section
 class: text-center
 ---
 
-# 📊 Session 9: Monitoring & Logs
-**16:00 – 16:30**
+### 📊 Step 9
+# Monitoring & Logs
 
 Keep an eye on your production app!
+
+**16:00 – 16:30**
 
 ---
 
