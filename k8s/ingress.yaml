@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: i18n-ingress
+  name: k8s-ingress
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod-new"
     traefik.ingress.kubernetes.io/router.tls: "true"
@@ -11,16 +11,16 @@ spec:
   ingressClassName: traefik
   tls:
     - hosts:
-        - i18n.catshoulder.dev
-      secretName: i18n-tls-v2
+        - k8s.catshoulder.dev
+      secretName: k8s-tls-v2
   rules:
-    - host: i18n.catshoulder.dev
+    - host: k8s.catshoulder.dev
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: i18n-service
+                name: k8s-service
                 port:
                   number: 8080

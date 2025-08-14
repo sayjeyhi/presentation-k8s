@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: i18n
+  name: k8s
   labels:
-    app: i18n
+    app: k8s
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: i18n
+      app: k8s
   template:
     metadata:
       labels:
-        app: i18n
+        app: k8s
     spec:
       containers:
-        - name: i18n
-          image: ghcr.io/sayjeyhi/presentation-i18n:latest
+        - name: k8s
+          image: ghcr.io/sayjeyhi/presentation-k8s:latest
           ports:
             - containerPort: 8080
 
