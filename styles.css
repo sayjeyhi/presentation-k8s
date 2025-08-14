@@ -12,20 +12,33 @@ background: linear-gradient(to right, #BECF24 0%, #95E6FF 50%, #CF8377 100%);
 }
 
 strong {
-  color: #66a1ff
+  color: #a5c4fd
 }
 
 thead tr, tbody tr:not(:last-child) {
   border-bottom-width: 2px !important;
-  border-color: rgb(255 255 255 / 37%) !important;
+  border-color: #1c4f9b !important;
 }
 
 tbody tr:last-child {
   border: none !important;
 }
 
+ td {
+  padding: 0.5rem !important;
+}
+
 th:not(:first-child), td:not(:first-child) {
-  border-left-width: 1px !important;
-  border-color: rgba(255, 216, 121, 0.75) !important;
-  border-style: dashed !important;
+  border-left-width: 2px !important;
+  border-color: #1c4f9b !important;
+  border-style: solid !important;
+}
+
+
+tr:last-child td {
+    border-bottom: none !important;
+}
+
+th{
+  background: #1c4f9b;
 }

@@ -36,8 +36,7 @@ css: unocss
 
 
 # 📅 Workshop Schedule
-
-<div class="grid grid-cols-5 mt-12 gap-6 text-sm">
+Steps we have
 
 <div class="col-span-2">
 
@@ -46,35 +45,75 @@ css: unocss
   <h3 class="text-lg font-semibold">Morning Sessions</h3>
 </header>
 
-- 🚀 **09:00-09:50** Kickoff & Requirements
-- ☕️ **09:50-10:00** Coffee Break
-- 🔒 **10:00-10:50** Domain and Server Setup
-- ☕️ **10:50-11:00** Coffee Break
-- ⚙️ **11:00-12:00** Install Kubernetes
 
+<div class="flex flex-col [&>div]:flex gap-2 [&>div]:justify-between [&>div]:items-center [&>div]:flex-row-reverse">
+  <div>
+    <span class="bg-slate-200 text-[9px] p-[2px] rounded text-slate-700">09:00-09:50</span> 🚀  Kickoff & Requirements
+  </div>
+  <div>
+    <span class="bg-slate-200 text-[9px] p-[2px] rounded text-slate-700">09:50-10:00</span> ☕️  Get domain, server, and DNS ready
+  </div>
+  <div>
+    <span class="bg-slate-200 text-[9px] p-[2px] rounded text-slate-700">10:00-10:50</span> 🔒  Secure the Server
+  </div>
+  <div>
+    <span class="bg-slate-200 text-[9px] p-[2px] rounded text-slate-700">10:50-11:00</span> ☕️  History of Deployment
+  </div>
+  <div>
+    <span class="bg-slate-200 text-[9px] p-[2px] rounded text-slate-700">11:00-12:00</span> ⚙️  Install Kubernetes
+  </div>
 </div>
 
+<div class="mt-12 text-center opacity-70">
+  we have x2 ☕️ Coffee Breaks <span class="text-xs">[10m each]</span>
+</div>
+</div>
+
+---
+
+# 📅 Workshop Schedule
+
 <div class="flex flex-col">
-  <h4 class="text-lg font-semibold">Lunch Break</h4>
+  <h4 class="text-lg font-semibold">Lunch Break 12:00 - 12:45</h4>
   <img src="/public/lunch.png" class="max-w-full h-auto rounded-lg mt-2" alt="Lunch Break" />
 </div>
 
-<div class="col-span-2">
+
+---
+
+# 📅 Workshop Schedule
+Steps we have
 
 <header class="mb-4 flex items-center gap-2">
   <span class="text-2xl inline-flex h-8 w-8 items-center justify-center rounded-xl bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-300">🌇</span>
   <h3 class="text-lg font-semibold">Afternoon Sessions</h3>
 </header>
 
-- 🐳 **13:00-13:45** Build & Push Docker App
-- 🚀 **13:45-14:30** Deploy to Kubernetes
-- 🔐 **14:30-15:15** Add HTTPS with cert-manager
-- 🤖 **15:15-16:00** Set Up CI/CD
-- 📊 **16:00-16:30** Monitoring & Logs
-- 💬 **16:30-17:00** Wrap-Up & Q&A
 
+
+<div class="flex flex-col [&>div]:flex gap-2 [&>div]:justify-between [&>div]:items-center [&>div]:flex-row-reverse">
+  <div>
+    <span class="bg-slate-200 text-[9px] p-[2px] rounded text-slate-700">13:00-13:50</span> 🐳  Build & Push Docker App
+  </div>
+  <div>
+    <span class="bg-slate-200 text-[9px] p-[2px] rounded text-slate-700">13:50-14:50</span> 🚀  Deploy to Kubernetes
+  </div>
+  <div>
+    <span class="bg-slate-200 text-[9px] p-[2px] rounded text-slate-700">14:50-15:20</span> 🔐 Add HTTPS with cert-manager
+  </div>
+  <div>
+    <span class="bg-slate-200 text-[9px] p-[2px] rounded text-slate-700">15:20-16:00</span> 🤖 Set Up CI/CD
+  </div>
+  <div>
+    <span class="bg-slate-200 text-[9px] p-[2px] rounded text-slate-700">16:00-16:20</span> 📊 Monitoring & Logs
+  </div>
+  <div>
+    <span class="bg-slate-200 text-[9px] p-[2px] rounded text-slate-700">16:20-17:00</span> 💬  Wrap-Up & Q&A
+  </div>
 </div>
 
+<div class="mt-12 text-center opacity-70">
+  we have x2 ☕️ Coffee Breaks <span class="text-xs">[10m each]</span>
 </div>
 
 ---
@@ -83,7 +122,7 @@ class: text-center
 ---
 
 # 🚀
-Session 1
+Step 1
 # Kickoff & Requirements
 
 **09:00 – 09:50**
@@ -99,8 +138,7 @@ Session 1
 
 - 🛠 **Market Needs**: Kubernetes, Docker, Linux are the industry standard for deployment.
 - 🚀 **Hands-On Experience**: Learn by doing, not just theory.
-- 🌐 **Full Stack**: From domain to deployment, cover the entire lifecycle.
-- 🤖 **CI/CD**: Automate your deployments with GitHub Actions.
+- 🌐 **Full Cycle**: From domain to deployment, cover the entire lifecycle.
 - 💡 **Real-World Skills**: Gain practical skills that employers value.
 - 🎯 **Goal-Oriented**: You'll have a fully deployed app with CI/CD.
 
@@ -109,25 +147,22 @@ Session 1
 
 ---
 
-# 🎯 Workshop Goal
+# 🎯 What will you learn?
 
-By the end of this full-day, hands-on workshop, each participant will have:
+By the end of this full-day, hands-on workshop:
 
 
 <br/>
+<br/>
 
-<v-click>
+- Ship a production-ready next.js app using Kubernetes having CI/CD pipelines
 
-- ✅ **A domain/subdomain configured** (Name.com and Cloudflare)
-- ✅ **A working Ubuntu Server, secured** (via Hetzner, digitalocean, or etc)
-- 🛡️ **A Local Kubernetes cluster** (OrbStack or k3s)
-- 🔒 **A secure remote Kubernetes cluster**
-- 🚀 **A deployed nextjs app** (Server side rendered)
-- 🤖 **A functioning CI/CD pipeline** (auto-deployments of your app)
 
-</v-click>
+<br/>
+<br/>
+<br/>
 
-<br>
+
 
 <v-click>
 
@@ -141,6 +176,447 @@ By the end of this full-day, hands-on workshop, each participant will have:
 </div>
 
 </v-click>
+
+---
+
+# 🏗 Technology Stack
+
+<div class="grid grid-cols-2 gap-8">
+
+<div>
+
+## Infrastructure
+- 🌐 **Server** (Hetzner/DigitalOcean/Vultr)
+- 🔗 **Domain + Cloudflare DNS**
+- 🔒 **Ubuntu Server** (secured)
+- ⚙️ **k3s Kubernetes** (lightweight)
+
+</div>
+
+<div>
+
+## Application & Deployment
+- 🐳 **Docker** containers
+- 🚀 **Kubernetes** deployments
+- 🌐 **Traefik Ingress**
+- 🔐 **Let's Encrypt HTTPS**
+- 🤖 **GitHub Actions CI/CD**
+
+</div>
+
+</div>
+
+<br>
+
+
+<div class="bg-green-50 border-l-4 border-green-400 p-4">
+  <p class="text-green-800 font-semibold">💡 Why this stack?</p>
+  <p class="text-green-700">Production-ready, cost-effective, and industry-standard tools that scale.</p>
+</div>
+
+
+---
+
+# ✅ What is not required
+You don't need to be worried if you don't have experience in the following topics, we will cover them during the workshop:
+
+<div class="text-sm">
+
+<br/>
+<br/>
+
+- **Linux** deep knowledge (Ubuntu Server - we will use basic commands)
+- **Docker** experience (You will learn basics and a Dockerfile will be provided)
+- **Kubernetes** knowledge (You will learn the basics and we will use simple YAML files)
+- **AWS or Azure** k8s experience (We will use k3s, a lightweight version of Kubernetes)
+- **CI/CD** setup
+- **Nextjs** experience (We will use a simple Next.js app as an example)
+
+
+</div>
+
+---
+layout: two-cols
+---
+
+# ✅ What is required?
+
+<div class="text-sm">
+
+<br/>
+<br/>
+<br/>
+
+## 🔐 Accounts
+
+<br/>
+
+- **GitHub** (To publish docker images)
+- **Cloudflare** (DNS)
+- **Server provider** (Hetzner, DigitalOcean)
+- **Domain**
+  - your domain connected to cloudflare
+  - OR I will give you a sub domain
+  - https://XX.iwaskidding.com/
+
+</div>
+
+::right::
+
+<div class="text-sm">
+
+<div class="mb-12 px-4 bg-red-50 border border-red-200 rounded">
+  <p class="text-red-700 text-sm flex items-center gap-4">
+    <span class="text-2xl">⚠️ </span> It is better to have requisites ready before we start!
+  </p>
+</div>
+
+## 💻 Required Tools
+
+<br/>
+
+- **SSH client + terminal** (mac default terminal has it)
+- **Git** (mac default terminal has it)
+- **Docker** (preferably OrbStack)
+- **Editor** (vscode, cursor, etc)
+
+
+## 🎯 Optional
+
+<br/>
+
+- **Docker Hub** account
+
+</div>
+
+---
+
+# 🚀 Clone and Get ready
+How should we get started?
+
+### Clone this repository and follow the steps in the README file:
+
+<br>
+
+
+```bash
+git clone https://github.com/sayjeyhi/shipping-apps-zero-to-hero.git
+```
+
+<br/>
+
+- We will push new tags to this repository as we go through the workshop.
+
+---
+layout: section
+class: text-center
+---
+
+<!-- Your turn -->
+<div class="flex items-center justify-center gap-4">
+  <img class="w-1/2" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjJhMTJjZXJjOTZhYjYxbXB3ajE2aWozbGVhdXJ6bG5xbXZweGhzYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/9rwFfmB2qJ0mEsmkfj/giphy.gif" />
+</div>
+
+---
+layout: section
+class: text-center
+---
+
+## 🌐 Step 2 
+# Provision Domain & Server
+
+Let's get our infrastructure foundation ready!
+
+**09:30 – 10:15**
+
+
+---
+
+# 🌐 Provision Domain & Server
+
+<br>
+
+## Step 1: Get Your Domain
+
+
+<br>
+
+- 🛒 **Buy a domain** (if you don't have one)
+  - Recommended: Namecheap, Google Domains, or your preferred registrar
+  - Example: `myawesomeapp.com`
+
+- If you don't have a domain, you can use a subdomain from my domain: 
+
+`XX.iwaskidding.com` (replace XX with your name or initials)
+
+---
+
+# Step 2: Set Up DNS Provider
+
+| Provider                       | Best For                                           | Downsides                                                              |
+|--------------------------------|----------------------------------------------------|-------------------------------------------------------------------------|
+| **Cloudflare**                 | Speed, free plan, security, easy API               | If you don’t want traffic going through their proxy, some features are irrelevant |
+| **AWS Route 53**               | Enterprise reliability, AWS integration, health checks | Paid per query, UI less beginner-friendly                              |
+| **Google Cloud DNS**           | Fast, simple, integrates with GCP                  | Paid, fewer advanced features than Cloudflare                          |
+| **DNS Made Easy**              | Enterprise failover, blazing speed                 | Paid, not as beginner-friendly                                         |
+| **Namecheap / Registrar DNS**  | Simplicity, no extra cost                           | Often slower, fewer features                                           |
+| **Hurricane Electric Free DNS**| Free, reliable, good for secondary DNS              | Lacks advanced filtering and UI polish                                 |
+
+
+---
+
+# Step 2: Set Up DNS Provider
+
+
+- ☁️ **Set up Cloudflare DNS Hosting**
+
+<br />
+
+  1. Add your domain to Cloudflare
+  2. Update nameservers at your registrar
+  3. Wait for DNS propagation (usually 5-15 minutes)
+
+
+<br />
+
+```bash
+# Test DNS propagation
+nslookup yourdomain.com 1.1.1.1
+```
+
+the second parameter (1.1.1.1) is the DNS server you want to query instead of your system’s default DNS server.
+
+
+---
+
+
+# 🖥 Provision Your Server
+
+
+## Create a local linux server
+
+Use VirtualBox to create a local Ubuntu server.
+After downloading VirtualBox, create a new VM and choose Ubuntu server iso file to install it.
+Then open it and check the IP address of your server:
+
+```bash
+ip -br a
+```
+
+Allow network access to your server by opening the necessary ports in your firewall. You can use UFW (Uncomplicated Firewall) to manage your firewall rules.
+
+```bash
+sudo ufw allow ssh
+
+sudo apt update
+sudo apt install openssh-server
+```
+
+---
+
+# 🖥 Provision Your Server
+
+<div class="flex items-center justify-center gap-4 text-2xl mt-40">
+<p class="text-center w-4/5">We will use a cloud server for this workshop, but we need the local server to test some of the configs locally.</p>
+</div>
+
+---
+
+# 🖥 Provision Your Server
+
+## Get a Cloud Server
+
+<br />
+
+- 🌟 **Choose your provider** (we recommend Hetzner for cost-effectiveness)
+- 🐧 **Ubuntu 22.04 LTS** (minimum 2GB RAM, 1 CPU)
+- 🌍 **Select region** closest to your users
+- 🔑 **Add SSH key** during creation (more secure than passwords)
+
+<br />
+
+```bash
+# SSH into your new server
+ssh root@YOUR_SERVER_IP
+
+# First command on your server
+apt update && apt upgrade -y
+```
+
+
+---
+
+
+# 🔗 Configure DNS
+
+## Step 3: Point Domain to Server
+
+In your Cloudflare dashboard:
+
+- 🎯 **A Record**: `@` → `YOUR_SERVER_IP`
+- 🎯 **A Record**: `www` → `YOUR_SERVER_IP`  
+- 🎯 **A Record**: `*` → `YOUR_SERVER_IP` (wildcard for subdomains)
+
+<br>
+
+```bash
+# Test DNS resolution
+ping yourdomain.com
+```
+
+
+<div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mt-4">
+  <p class="text-yellow-800 font-semibold">⏰ Note</p>
+  <p class="text-yellow-700">DNS changes can take up to 24 hours to fully propagate, but usually work within minutes with Cloudflare.</p>
+</div>
+
+
+---
+layout: section
+class: text-center
+---
+
+<!-- Your turn -->
+<div class="flex items-center justify-center gap-4">
+  <img class="w-1/2" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExeXM3Y3J5a3d1cWVscXVhbnptMGEzdGtzNzVwaHk3MDRkMjR1MjV4YiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/YlSIESTw3bjAC0BzJg/giphy.gif" />
+</div>
+
+---
+layout: section
+class: text-center
+---
+
+### 🔒 Step 3 
+# Secure the Server
+
+Security first! Let's lock down our server.
+
+**10:15 – 11:00**
+
+---
+
+# 🔒 Secure the Server
+
+## Step 1: SSH Key Authentication
+
+```bash
+# On your local machine - generate SSH key if you don't have one
+ssh-keygen -t ed25519 -C "your-email@example.com"
+
+# Copy public key to server
+ssh-copy-id root@YOUR_SERVER_IP
+
+# Or manually copy the key
+cat ~/.ssh/id_ed25519.pub
+```
+
+```bash
+# On the server - add your public key
+mkdir -p ~/.ssh
+echo "your-public-key-here" >> ~/.ssh/authorized_keys
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys
+```
+
+
+---
+
+# 🛡 Disable Root Login & Enable Firewall
+
+## Step 2: Harden SSH Access
+
+<v-clicks>
+
+```bash
+# Create a new user (recommended)
+adduser workshop
+usermod -aG sudo workshop
+
+# Edit SSH configuration
+nano /etc/ssh/sshd_config
+```
+
+```ini
+# Key changes in /etc/ssh/sshd_config
+PermitRootLogin no
+PasswordAuthentication no  
+PubkeyAuthentication yes
+Port 22  # or change to custom port like 2222
+```
+
+```bash
+# Restart SSH service
+systemctl restart ssh
+```
+
+</v-clicks>
+
+---
+
+# 🔥 Setup Firewall (UFW)
+
+## Step 3: Configure Basic Firewall
+
+<v-clicks>
+
+```bash
+# Enable UFW and set defaults
+ufw default deny incoming
+ufw default allow outgoing
+
+# Allow essential ports
+ufw allow ssh       # or custom port: ufw allow 2222
+ufw allow 80/tcp    # HTTP
+ufw allow 443/tcp   # HTTPS
+ufw allow 6443/tcp  # Kubernetes API
+
+# Enable firewall
+ufw --force enable
+
+# Check status
+ufw status verbose
+```
+
+</v-clicks>
+
+<v-click>
+
+<div class="bg-red-50 border-l-4 border-red-400 p-4 mt-4">
+  <p class="text-red-800 font-semibold">⚠️ Critical</p>
+  <p class="text-red-700">Test SSH access from a new terminal before closing your current session!</p>
+</div>
+
+</v-click>
+
+
+---
+
+# 🔥 Setup Fail2Ban
+
+
+
+---
+
+# Base network
+
+
+---
+
+# IP tables & Fail2Ban
+
+
+
+
+
+---
+layout: section
+class: text-center
+---
+
+<!-- Your turn -->
+<div class="flex items-center justify-center gap-4">
+  <img class="w-1/2" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2Rrb2Zyc2t4dzR1djN6bzNhZzdsNXNvYWFlMGltbzRlb2I5ZndkeCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ryuSzNRzZbYikfRtIJ/giphy.gif" />
+</div>
 
 ---
 
@@ -461,7 +937,7 @@ Some of the deployment methods are still in use, but not as much as before.
 ![cloudflare-workers.png](./public/cloudflare-workers.png)
 
 
---- 
+---
 
 <div class="flex h-full items-center justify-center">
   <div class="text-center">
@@ -470,379 +946,26 @@ Some of the deployment methods are still in use, but not as much as before.
   </div>
 </div>
 
----
-layout: two-cols
----
-
-# ✅ What is required?
-
-<div class="text-sm">
-
-<br/>
-<br/>
-<br/>
-
-## 🔐 Accounts
-
-<br/>
-
-- **GitHub** (To publish docker images)
-- **Cloudflare** (DNS)
-- **Server provider** (Hetzner, DigitalOcean)
-- **Domain** 
-  - your domain connected to cloudflare 
-  - OR I will give you a sub domain
-  - https://XX.iwaskidding.com/
-
-</div>
-
-::right::
-
-<div class="text-sm">
-
-<div class="mb-12 px-4 bg-red-50 border border-red-200 rounded">
-  <p class="text-red-700 text-sm flex items-center gap-4">
-    <span class="text-2xl">⚠️ </span> It is better to have requisites ready before we start!
-  </p>
-</div>
-
-## 💻 Required Tools
-
-<br/>
-
-- **SSH client + terminal** (mac default terminal has it)
-- **Git** (mac default terminal has it)
-- **Docker** (preferably OrbStack)
-- **Editor** (vscode, cursor, etc)
-
-
-## 🎯 Optional
-
-<br/>
-
-- **Docker Hub** account
-
-</div>
-
----
-
-# ✅ What is not required
-What is not really required from you, but if you have it, it is a plus:
-
-
-<div class="text-sm">
-
-<br/>
-<br/>
-
-- **Linux** knowledge (We will use Ubuntu Server and I will guide you through)
-- **Docker** experience (You will learn basics and a Dockerfile will be provided)
-- **Kubernetes** knowledge (You will learn the basics and we will use simple YAML files)
-- **AWS or Azure** k8s experience (We will use k3s, a lightweight version of Kubernetes)
-- **CI/CD** setup
-- **Nextjs** experience (We will use a simple Next.js app as an example)
-
-
-</div>
-
----
-
-# 🚀 Kickoff & Environment Check
-
-## What we'll cover in this session:
-
-
-- 👋 **Introductions** - Who are we and why are we here?
-- 🎯 **Goals review** - What we'll accomplish today
-- 🛠 **Stack overview** - Technologies we'll use
-- ✅ **Tool verification** - Make sure everything works
-- 📁 **Clone starter repo** - Get our hands dirty
-
-
-<br>
-
-
-```bash
-# Let's start by cloning our starter repository
-git clone https://github.com/your-workshop/k8s-zero-to-hero.git
-cd k8s-zero-to-hero
-```
-
-
----
-layout: default
----
-
-# 🏗 Our Technology Stack
-
-<div class="grid grid-cols-2 gap-8">
-
-<div>
-
-## Infrastructure
-- 🌐 **Server** (Hetzner/DigitalOcean/Vultr)
-- 🔗 **Domain + Cloudflare DNS**
-- 🔒 **Ubuntu Server** (secured)
-- ⚙️ **k3s Kubernetes** (lightweight)
-
-</div>
-
-<div>
-
-## Application & Deployment  
-- 🐳 **Docker** containers
-- 🚀 **Kubernetes** deployments
-- 🌐 **NGINX Ingress** 
-- 🔐 **Let's Encrypt HTTPS**
-- 🤖 **GitHub Actions CI/CD**
-
-</div>
-
-</div>
-
-<br>
-
-
-<div class="bg-green-50 border-l-4 border-green-400 p-4">
-  <p class="text-green-800 font-semibold">💡 Why this stack?</p>
-  <p class="text-green-700">Production-ready, cost-effective, and industry-standard tools that scale.</p>
-</div>
-
 
 ---
 layout: section
 class: text-center
 ---
 
-# 🌐 Session 2: Provision Domain & Server
-**09:30 – 10:15**
-
-Let's get our infrastructure foundation ready!
-
----
-
-# How I start deploying my apps?
-
-### Using CPanel
-- A tool provided by hosting providers
-- Port 2082 for HTTP, 2083 for HTTPS
-- Upload zip files via File Manager
-- No version control, no automation
-
----
-
-# How I start deploying my apps?
-
-### Using ftp to upload files to the server
-- A tool called FileZilla or WinSCP
-- Port 21 for FTP
-- Uploading files to the server
-- No version control, no automation
-
-
----
-
-# 🌐 Provision Domain & Server
-
-## Step 1: Get Your Domain
-
-
-- 🛒 **Buy a domain** (if you don't have one)
-  - Recommended: Namecheap, Google Domains, or your preferred registrar
-  - Example: `myawesomeapp.com`
-
-- ☁️ **Set up Cloudflare**
-  1. Add your domain to Cloudflare
-  2. Update nameservers at your registrar
-  3. Wait for DNS propagation (usually 5-15 minutes)
-
-
-
-```bash
-# Test DNS propagation
-nslookup yourdomain.com 1.1.1.1
-```
-
----
-layout: default
----
-
-# 🖥 Provision Your Server
-
-## Step 2: Create and Access Server
-
-
-- 🌟 **Choose your provider** (we recommend Hetzner for cost-effectiveness)
-- 🐧 **Ubuntu 22.04 LTS** (minimum 2GB RAM, 1 CPU)
-- 🌍 **Select region** closest to your users
-- 🔑 **Add SSH key** during creation (more secure than passwords)
-
-
-```bash
-# SSH into your new server
-ssh root@YOUR_SERVER_IP
-
-# First command on your server
-apt update && apt upgrade -y
-```
-
-
----
-layout: default
----
-
-# 🔗 Configure DNS
-
-## Step 3: Point Domain to Server
-
-In your Cloudflare dashboard:
-
-- 🎯 **A Record**: `@` → `YOUR_SERVER_IP`
-- 🎯 **A Record**: `www` → `YOUR_SERVER_IP`  
-- 🎯 **A Record**: `*` → `YOUR_SERVER_IP` (wildcard for subdomains)
-
-<br>
-
-```bash
-# Test DNS resolution
-ping yourdomain.com
-```
-
-
-<div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mt-4">
-  <p class="text-yellow-800 font-semibold">⏰ Note</p>
-  <p class="text-yellow-700">DNS changes can take up to 24 hours to fully propagate, but usually work within minutes with Cloudflare.</p>
-</div>
-
----
-layout: section
-class: text-center
----
-
-# 🔒 Session 3: Secure the Server
-**10:15 – 11:00**
-
-Security first! Let's lock down our server.
-
----
-layout: default
----
-
-# 🔒 Secure the Server
-
-## Step 1: SSH Key Authentication
-
-
-```bash
-# On your local machine - generate SSH key if you don't have one
-ssh-keygen -t ed25519 -C "your-email@example.com"
-
-# Copy public key to server
-ssh-copy-id root@YOUR_SERVER_IP
-
-# Or manually copy the key
-cat ~/.ssh/id_ed25519.pub
-```
-
-```bash
-# On the server - add your public key
-mkdir -p ~/.ssh
-echo "your-public-key-here" >> ~/.ssh/authorized_keys
-chmod 700 ~/.ssh
-chmod 600 ~/.ssh/authorized_keys
-```
-
-
----
-layout: default
----
-
-# 🛡 Disable Root Login & Enable Firewall
-
-## Step 2: Harden SSH Access
-
-<v-clicks>
-
-```bash
-# Create a new user (recommended)
-adduser workshop
-usermod -aG sudo workshop
-
-# Edit SSH configuration
-nano /etc/ssh/sshd_config
-```
-
-```ini
-# Key changes in /etc/ssh/sshd_config
-PermitRootLogin no
-PasswordAuthentication no  
-PubkeyAuthentication yes
-Port 22  # or change to custom port like 2222
-```
-
-```bash
-# Restart SSH service
-systemctl restart ssh
-```
-
-</v-clicks>
-
----
-layout: default
----
-
-# 🔥 Setup Firewall (UFW)
-
-## Step 3: Configure Basic Firewall
-
-<v-clicks>
-
-```bash
-# Enable UFW and set defaults
-ufw default deny incoming
-ufw default allow outgoing
-
-# Allow essential ports
-ufw allow ssh       # or custom port: ufw allow 2222
-ufw allow 80/tcp    # HTTP
-ufw allow 443/tcp   # HTTPS
-ufw allow 6443/tcp  # Kubernetes API
-
-# Enable firewall
-ufw --force enable
-
-# Check status
-ufw status verbose
-```
-
-</v-clicks>
-
-<v-click>
-
-<div class="bg-red-50 border-l-4 border-red-400 p-4 mt-4">
-  <p class="text-red-800 font-semibold">⚠️ Critical</p>
-  <p class="text-red-700">Test SSH access from a new terminal before closing your current session!</p>
-</div>
-
-</v-click>
-
----
-layout: section
-class: text-center
----
-
-# ⚙️ Session 4: Install Kubernetes (k3s)
-**11:00 – 12:00**
+### ⚙️ Step 5
+# Install Kubernetes
 
 Time to get our Kubernetes cluster running!
 
----
-layout: default
+**11:00 – 12:00**
+
 ---
 
 # ⚙️ Install k3s
 
 ## What is k3s?
+
+<br/>
 
 <v-clicks>
 
@@ -867,8 +990,6 @@ sudo systemctl status k3s
 
 </v-click>
 
----
-layout: default
 ---
 
 # 🔗 Connect with kubectl
@@ -900,8 +1021,6 @@ kubectl get pods --all-namespaces
 
 </v-clicks>
 
----
-layout: default
 ---
 
 # ✅ Verify Cluster
@@ -947,23 +1066,36 @@ layout: section
 class: text-center
 ---
 
-# 🍕 Lunch Break
-**12:00 – 13:00**
+<!--- Your turn to deploy! --->
+<div class="flex items-center justify-center gap-4">
+  <img class="w-1/2" src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW1yemk0bm5nZ2RvNTl1bXpqam42ODM0d2k4Z25wdm9qbHM0cmFxciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/gkHbTdyogvE6Iuul7X/giphy.gif" />
+</div>
 
-Refuel and get ready for the deployment phase!
 
 ---
 layout: section
 class: text-center
 ---
 
-# 🐳 Session 5: Build & Push Docker App
-**13:00 – 13:45**
+## 🍕 
+# Lunch Break
+Refuel and get ready for the deployment phase!
+
+**We will start at 13:00**
+
+---
+layout: section
+class: text-center
+---
+
+### 🐳 Step 5
+# Build & Push Docker App
 
 Let's containerize our application!
 
----
-layout: default
+**13:00 – 13:45**
+
+
 ---
 
 # 🐳 Build & Push Docker App
@@ -992,8 +1124,6 @@ cat app.py  # or index.js, depending on your template
 
 </v-click>
 
----
-layout: default
 ---
 
 # 📦 Write Dockerfile
@@ -1032,8 +1162,6 @@ CMD ["python", "app.py"]
 </v-clicks>
 
 ---
-layout: default
----
 
 # 🚀 Build & Push to Registry
 
@@ -1066,18 +1194,363 @@ docker push your-username/workshop-app:v1.0.0
 
 </v-click>
 
+
 ---
 layout: section
 class: text-center
 ---
 
-# 🚀 Session 6: Deploy to Kubernetes
-**13:45 – 14:30**
+<!--- Your turn to deploy! --->
+<div class="flex items-center justify-center gap-4">
+  <img class="w-1/2" src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExcXhjZjNqcWVmbmc5dXkzb2tyaTI2cDdxZGxlZGRpOHdjOHF0bzJhcCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/VDKo89Y9zmBApOIOYp/giphy.gif" />
+</div>
+
+
+---
+layout: section
+class: text-center
+---
+
+## 🚀 Step 6
+# Deploy to Kubernetes
 
 Time to deploy our app to the cluster!
 
+**13:45 – 14:30**
+
 ---
-layout: default
+
+# 🚀 What is Kubernetes?
+https://kubernetes.io/
+
+<div class="flex items-center justify-center flex-col">
+  <img src="/public/k8s.png" />
+</div>
+
+
+---
+
+
+# 🚀 What is Kubernetes?
+
+<v-clicks>
+
+- 🐳 **Container Orchestration** - Manages containerized applications
+- 🔄 **Self-Healing** - Automatically replaces failed containers
+- 📦 **Declarative Configuration** - Define desired state in YAML files
+- 📈 **Scalability** - Easily scale applications up or down
+- 🔗 **Service Discovery** - Automatically manages service endpoints
+- 🔒 **Security** - Role-based access control, network policies
+
+</v-clicks>
+
+
+<v-click>
+
+
+<div class="flex flex-col mt-12 justify-start gap-2 text-sm bg-gray-900 p-2 border-l-4 border-solid border-gray-300 rounded">
+  <h4>Looks promising right?</h4>
+  <div class="flex gap-2 items-center">
+    Let's see how Kubernetes is structured and what components it has.
+    <img class="w-6" src="https://em-content.zobj.net/source/microsoft-teams/363/winking-face_1f609.png" />
+  </div>
+</div>
+
+
+</v-click>
+
+---
+
+# Kube Cuddle
+#### 🤗
+
+`kubectl` ["cube control" or "kube cuddle"] command-line tool for interacting with a K8s cluster.
+
+
+```bash
+kubectl get pods
+
+kubectl logs my-pod
+```
+
+How it works
+
+- You run a `kubectl` command on your local machine (or a CI/CD job).
+- kubectl sends a REST API request to the cluster’s **kube-apiserver**.
+- `kube-apiserver` validates, processes, and applies the changes.
+
+
+---
+
+# 📦 K8S Core Resources (User-facing)
+
+<v-clicks>
+
+- **Pods** – Smallest deployable unit (one or more containers)
+- **Deployments** – Ensure desired state, manage rolling updates & rollbacks
+- **Services** – Stable networking for pods
+- **Service Types** – **ClusterIP**, **NodePort**, **LoadBalancer**
+- **Ingress** – HTTP/S routing into the cluster
+- **Namespaces** – Logical isolation of resources
+- **ConfigMaps** – Store non-sensitive config data
+- **Secrets** – Store sensitive data securely
+
+</v-clicks>
+
+
+
+<v-click>
+
+
+<div class="flex flex-col mt-12 justify-start gap-2 text-sm bg-gray-900 p-2 border-l-4 border-solid border-gray-300 rounded">
+  <div class="flex gap-2 items-center">
+    There are many more resources, but these are the most common ones you will interact with.
+  </div>
+</div>
+
+
+</v-click>
+
+<!--
+Notes:
+- These are API resources users interact with most.
+- Pods: smallest deployable unit — can contain 1+ containers.
+- Deployments: manage replicas, scaling, and rolling updates automatically.
+- Services: give stable IPs and DNS names to pods.
+- Service Types:
+  - ClusterIP: internal-only
+  - NodePort: exposes service on each node's IP & static port
+  - LoadBalancer: integrates with external load balancer
+- Ingress: routes external HTTP/S to services.
+- Namespaces: logical separation for multi-team/multi-env setups.
+- ConfigMaps: store configs without rebuilding images.
+- Secrets: like ConfigMaps but for sensitive info (base64-encoded).
+-->
+
+---
+
+# 🛠️ Control Plane Components (Cluster Brain)
+
+<v-click>
+
+- **API Server (`kube-apiserver`)** – Front door to the cluster, all requests go here
+- **etcd** – Consistent key-value store for all cluster data/state
+- **Controller Manager** – Runs background controllers (e.g., ReplicaSet controller, Node controller)
+- **Scheduler** – Decides which node will run each pod
+
+</v-click>
+
+<!--
+Notes:
+The control plane is the central management layer — the part of the cluster that makes decisions, maintains the desired state, and responds to changes.
+
+- This is the brain of Kubernetes.
+- API Server: every request to the cluster passes here (CLI, UI, controllers).
+- etcd: the database for Kubernetes — stores the entire state.
+- Controller Manager: runs loops that reconcile desired vs actual state (e.g., creates pods when replicas are missing).
+- Scheduler: picks the best node for a new pod based on constraints & resources.
+- Without these, the cluster can't make decisions or recover from changes.
+-->
+
+---
+
+# ⚙️ Node Components (Cluster Workers)
+
+<v-click>
+
+- **kubelet** – Talks to API server, ensures pods are running as specified
+- **kube-proxy** – Handles service networking & routing rules
+- **Container Runtime** – Runs containers (e.g., containerd, CRI-O, Docker*)
+- **Node OS & Networking** – Underlying system for workloads
+
+</v-click>
+
+
+<!--
+Notes:
+- These run on every worker node.
+- kubelet: communicates with API server and ensures containers are running.
+- kube-proxy: manages networking rules so services can reach pods.
+- Container Runtime: actual software running containers — containerd is default in most setups now.
+- Node OS & Networking: underlying Linux/OS layer — kernel networking plays a big role.
+- If any of these fail, workloads on that node can fail.
+-->
+
+---
+
+# Container Runtime
+
+Starting with Kubernetes v1.24 (May 2022), Docker as a runtime is officially removed.
+
+<div class="flex items-center justify-center gap-4">
+  <img class="w-1/2" src="/public/k8s-container-runtime.png" />
+</div>
+
+<!--
+K8s was using docker internally to run containers!
+
+docker itself uses containerd 
+they put some effort to remove this - used containerd
+-->
+
+---
+
+| Kubernetes Provider | Default Runtime |
+|---------------------|-----------------|
+| GKE (Google)        | containerd      |
+| EKS (AWS)           | containerd      |
+| AKS (Azure)         | containerd      |
+| OpenShift           | CRI-O           |
+| k3s / RKE2          | containerd      |
+|                     |                 |
+
+
+<!--
+Most of the distributions are using containerd
+-->
+
+---
+
+<div class="flex items-center justify-center">
+  <img src="/public/containerd.png" />
+</div>
+
+<!--
+ContainerD implementation
+
+CRI: Container Runtime Interface
+OCI: Open Container Initiative
+-->
+
+---
+
+# Kubernetes Architecture
+Till now we have seen the Kubernetes architecture from a high level
+
+```mermaid
+flowchart LR
+    A[kubectl] --> B[kube-apiserver]
+    B --> C[kubelet]
+    C --> D[CRI: Container Runtime Interface]
+    D --> E{containerd / CRI-O}
+    E --> F[runc]
+    F --> G[kernel]
+    
+    style A fill:#3b82f6,stroke:#1e40af,stroke-width:2px,color:#fff
+    style D fill:green,stroke-width:2px,color:#fff
+    style G fill:white,stroke-width:2px,color:#000
+```
+
+K8s is graduated project in the CNCF(Cloud Native Computing Foundation).
+
+---
+
+
+<div class="flex items-center justify-center bg-white p-4 rounded-lg shadow-md">
+  <img class="w-1/2" src="https://containerd.io/img/logos/cncf.png" />
+</div>
+
+CNCF organizes projects into three maturity tiers:
+
+- **Sandbox**: Experimental, early-stage projects.
+- **Incubating**: Growing projects with increasing adoption and contributor base.
+- **Graduated**: Stable, widely adopted, production-ready technologies
+
+
+Lots of famous projects like `Kubernetes`, `Prometheus`, `Envoy`, `Istio`, `linkerd`, `etcd`, `gRPC`, `cert-manager` and `containerd` are in the **Graduated** tier.
+
+- Having a stamp of approval
+- Supporting the community and ecosystem around cloud-native
+- Training, Events, and Resources.
+
+---
+
+# CNCF-Conformant K8s Distributions
+It means it passes the Certified K8s Conformance Program tests.
+
+---
+
+# 🛠️ Built-in Workload & Scheduling Resources
+
+<v-click>
+
+- **StatefulSets** – Manage stateful apps with stable IDs
+- **DaemonSets** – Ensure a copy of a pod runs on all/selected nodes
+- **Jobs** – Run batch or one-time tasks
+- **CronJobs** – Schedule jobs at specific times
+- **Horizontal Pod Autoscaler (HPA)** – Scale pods based on metrics
+- **Vertical Pod Autoscaler (VPA)** – Adjust pod resource requests automatically
+- **Network Policies** – Control traffic between pods
+- **Pod Security Policies** *(deprecated)* – Define pod security requirements
+- **Admission Controllers** – Validate or mutate API requests
+
+</v-click>
+
+---
+
+# 🔌 Add-ons & Extensions
+
+<v-click>
+
+- **Ingress Controller** – Implements Ingress (e.g., NGINX, Traefik)
+- **Metrics Server** – Collects resource metrics for autoscaling
+- **Custom Resource Definitions (CRDs)** – Extend Kubernetes API
+- **Operators** – Manage complex apps with custom controllers
+
+</v-click>
+
+---
+
+# 🛠️ Ingress Controllers
+
+| Kubernetes Distribution  | Default Ingress Controller                                          |
+| ------------------------ | ------------------------------------------------------------------- |
+| **k3s / RKE2**           | ✅ Traefik (by default in k3s)                                       |
+| **Minikube**             | ❌ None (you install manually)                                       |
+| **GKE (Google)**         | ✅ Google Cloud Load Balancer                                        |
+| **EKS (AWS)**            | ❌ None by default — you install AWS ALB Ingress Controller or NGINX |
+| **AKS (Azure)**          | ✅ Azure Application Gateway (optionally)                            |
+| **OpenShift**            | ✅ HAProxy-based Router                                              |
+| **Kind** (local testing) | ❌ None                                                              |
+| **MicroK8s**             | ✅ NGINX (if you enable `ingress`)                                   |
+| **Kubernetes (vanilla)** | ❌ None                                                              |
+
+
+---
+
+# 🛠️ Ingress Controllers
+
+Check available Ingress Classes in your cluster:
+
+```bash
+kubectl get ingressclass
+```
+
+Returns:
+
+
+```
+NAME      CONTROLLER                      PARAMETERS   AGE
+traefik   traefik.io/ingress-controller   <none>       11d
+```
+
+
+---
+
+
+# 🌐 Ecosystem Tools (Not Core K8s)
+
+<br/>
+
+- **Helm** – Package manager for Kubernetes apps
+- **Persistent Volumes (PVs)** – Storage resource abstraction
+- **Persistent Volume Claims (PVCs)** – Request storage from PVs
+- **Kustomize** – Customize Kubernetes YAML configurations
+- **ArgoCD** – GitOps continuous delivery tool
+- **Flux** – GitOps tool for Kubernetes
+- **Prometheus** – Monitoring and alerting toolkit
+- **Grafana** – Visualization tool for metrics
+
 ---
 
 # 🚀 Deploy to Kubernetes
@@ -1120,8 +1593,6 @@ spec:
 </v-clicks>
 
 ---
-layout: default
----
 
 # 🌐 Create Service
 
@@ -1162,10 +1633,11 @@ kubectl get services
 </v-click>
 
 ---
-layout: default
----
 
-# 🌐 Expose via NGINX Ingress
+# 🌐 Expose via Traefik Ingress
+
+ingress Controller is a Kubernetes resource that manages external access to services within the cluster.
+it acts as a reverse proxy, routing incoming traffic to the appropriate service based on rules defined in Ingress resources.
 
 ## Step 3: Create Ingress
 
@@ -1208,8 +1680,6 @@ kubectl get ingress
 
 </v-click>
 
----
-layout: default
 ---
 
 # 🧪 Test Access
@@ -1260,8 +1730,6 @@ class: text-center
 Let's secure our app with automatic SSL certificates!
 
 ---
-layout: default
----
 
 # 🔐 Install cert-manager
 
@@ -1291,8 +1759,6 @@ kubectl get crd | grep cert-manager
 
 </v-click>
 
----
-layout: default
 ---
 
 # 🏭 Configure ClusterIssuer
@@ -1335,8 +1801,6 @@ kubectl describe clusterissuer letsencrypt-prod
 </v-click>
 
 ---
-layout: default
----
 
 # 🔒 Enable HTTPS
 
@@ -1374,8 +1838,6 @@ spec:
 
 </v-clicks>
 
----
-layout: default
 ---
 
 # ✅ Verify HTTPS
@@ -1430,8 +1892,6 @@ class: text-center
 Automate all the things!
 
 ---
-layout: default
----
 
 # 🤖 Set Up CI/CD
 
@@ -1465,8 +1925,6 @@ jobs:
 
 </v-clicks>
 
----
-layout: default
 ---
 
 # 🔨 Build & Push Steps
@@ -1505,8 +1963,6 @@ layout: default
 </v-clicks>
 
 ---
-layout: default
----
 
 # 🚀 Auto Deploy Step
 
@@ -1536,8 +1992,6 @@ layout: default
 
 </v-clicks>
 
----
-layout: default
 ---
 
 # 🔑 Configure Secrets
@@ -1590,8 +2044,6 @@ class: text-center
 Keep an eye on your production app!
 
 ---
-layout: default
----
 
 # 📊 Monitoring & Logs
 
@@ -1617,8 +2069,6 @@ kubectl get events --sort-by='.lastTimestamp'
 
 </v-clicks>
 
----
-layout: default
 ---
 
 # 🔍 Application Health Checks
@@ -1651,8 +2101,6 @@ spec:
 
 </v-clicks>
 
----
-layout: default
 ---
 
 # 📈 Basic Observability
@@ -1689,13 +2137,11 @@ layout: section
 class: text-center
 ---
 
-# 💬 Session 10: Wrap-Up & Q&A
+# 💬 Step 10: Wrap-Up & Q&A
 **16:30 – 17:00**
 
 You did it! Let's recap and plan next steps.
 
----
-layout: default
 ---
 
 # 🎉 Congratulations! You've Built:
@@ -1723,8 +2169,6 @@ layout: default
 
 </v-click>
 
----
-layout: default
 ---
 
 # 🚀 What's Next?
@@ -1757,8 +2201,6 @@ layout: default
 
 </div>
 
----
-layout: default
 ---
 
 # 📚 Optional Take-Home Exercises
