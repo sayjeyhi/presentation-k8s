@@ -48,19 +48,19 @@ Steps we have
 
 <div class="flex flex-col [&>div]:flex gap-2 [&>div]:justify-between [&>div]:items-center [&>div]:flex-row-reverse">
   <div>
-    <span class="bg-slate-200 text-[9px] p-[2px] rounded text-slate-700">09:00-09:50</span> 🚀  Kickoff & Requirements
+    <span class="bg-slate-200 text-[9px] p-[2px] rounded text-slate-700">09:30-09:50</span> 🚀  Kickoff & Requirements
   </div>
   <div>
-    <span class="bg-slate-200 text-[9px] p-[2px] rounded text-slate-700">09:50-10:00</span> ☕️  Get domain, server, and DNS ready
+    <span class="bg-slate-200 text-[9px] p-[2px] rounded text-slate-700">09:50-10:30</span> 🌎  Get domain, server, and DNS ready
   </div>
   <div>
-    <span class="bg-slate-200 text-[9px] p-[2px] rounded text-slate-700">10:00-10:50</span> 🔒  Secure the Server
+    <span class="bg-slate-200 text-[9px] p-[2px] rounded text-slate-700">10:30-10:50</span> 🔒  Secure the Server
   </div>
   <div>
-    <span class="bg-slate-200 text-[9px] p-[2px] rounded text-slate-700">10:50-11:00</span> ☕️  History of Deployment
+    <span class="bg-slate-200 text-[9px] p-[2px] rounded text-slate-700">10:50-11:20</span> ⏳  History of Deployment
   </div>
   <div>
-    <span class="bg-slate-200 text-[9px] p-[2px] rounded text-slate-700">11:00-12:00</span> ⚙️  Install Kubernetes
+    <span class="bg-slate-200 text-[9px] p-[2px] rounded text-slate-700">11:20-12:00</span> ⚙️  Install Kubernetes
   </div>
 </div>
 
@@ -125,7 +125,7 @@ class: text-center
 Step 1
 # Kickoff & Requirements
 
-**09:00 – 09:50**
+**09:30 – 09:50**
 
 ---
 
@@ -291,10 +291,10 @@ layout: two-cols
 
 ---
 
-# 🚀 Clone and Get ready
+# Git repository
 How should we get started?
 
-### Clone this repository and follow the steps in the README file:
+### We will use a Git repository to manage our code and configurations.
 
 <br>
 
@@ -311,6 +311,12 @@ git clone https://github.com/sayjeyhi/shipping-apps-zero-to-hero.git
 layout: section
 class: text-center
 ---
+ 
+🚀 Clone and Get ready
+
+```bash
+git clone https://github.com/sayjeyhi/shipping-apps-zero-to-hero.git
+```
 
 <!-- Your turn -->
 <div class="flex items-center justify-center gap-4">
@@ -1767,40 +1773,118 @@ kubectl get crd | grep cert-manager
 
 ## Step 2: Set up Let's Encrypt
 
-<v-clicks>
+<v-click>
 
 ```yaml
 # k8s/cluster-issuer.yaml
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: letsencrypt-prod
+  name: letsencrypt-production
+  namespace: default
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
-    email: your-email@example.com
+    email: sayjeyhi@gmail.com
     privateKeySecretRef:
-      name: letsencrypt-prod
+      name: letsencrypt-production
     solvers:
-    - http01:
-        ingress:
-          class: traefik
+      - selector: {}
+        http01:
+          ingress:
+            class: traefik
 ```
 
-</v-clicks>
+</v-click>
+
+---
+
+# 🏭 Configure ClusterIssuer
+
+## Step 2: Set up Certificate
+
+<v-click>
+
+```yaml
+# k8s/certificate.yaml
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ssl-cert-production
+  namespace: default
+spec:
+  secretName: ssl-cert-production
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: domain.co
+  dnsNames:
+    - domain.com
+    - sub.domain.com
+```
+
+</v-click>
+
+---
 
 <v-click>
 
 ```bash
 # Apply ClusterIssuer
 kubectl apply -f k8s/cluster-issuer.yaml
+kubectl apply -f k8s/certificate.yaml
 
 # Check issuer status
 kubectl get clusterissuer
-kubectl describe clusterissuer letsencrypt-prod
+kubectl get certificate
 ```
 
 </v-click>
+
+---
+
+# Challenge Types
+
+- **HTTP-01**: cert-manager creates a temporary Ingress to serve the ACME challenge token at `/.well-known/acme-challenge/`.
+- **DNS-01**: cert-manager creates a DNS TXT record for the domain to prove ownership.
+
+The config we have is using HTTP-01 challenge, which means cert-manager will create a temporary Ingress to serve the ACME challenge token.
+
+
+---
+
+# 🔐 How cert-manager Works
+
+<br/>
+
+<div class="overflow-x-auto">
+
+```mermaid
+flowchart LR
+    A[You create Ingress with cert-manager annotations or a Certificate resource] --> B[Certificate]
+    B --> C{Issuer/ClusterIssuer exists e.g., ACME with Let's Encrypt?}
+    C -- no --> X[Reconcile error Fix Issuer/ClusterIssuer]
+    C -- yes --> K[Generate/Reuse Private Key stored/updated in target Secret]
+    K --> D[Create ACME Order acme.cert-manager.io]
+    D --> E[Create ACME Challenge for each authorization]
+
+    E --> F{Solver type?}
+    F -- HTTP-01 --> G[Create temporary solver Ingress/Service/Pod serving token at /.well-known/acme-challenge/]
+    F -- DNS-01 --> H[Create/Update TXT record _acme-challenge.yourdomain.com]
+
+    G --> I[ACME server validates token]
+    H --> I[ACME server validates TXT]
+    I --> J{All challenges valid?}
+    J -- no --> E
+    J -- yes --> Z[Finalize ACME Order]
+
+    Z --> L[Create CertificateRequest with CSR]
+    L --> M[ACME returns cert chain]
+    M --> N[Write/Update target TLS Secret \n tls.crt, tls.key, ca.crt if provided]
+    N --> O[Mark Certificate as Ready]
+```
+
+</div>
 
 ---
 
@@ -2143,16 +2227,34 @@ layout: section
 class: text-center
 ---
 
-# 💬 Step 10: Wrap-Up & Q&A
-**16:30 – 17:00**
+### 💬 Step 10 
+# Email setup, Wrap-Up
 
-You did it! Let's recap and plan next steps.
+Set up your custom domain email and wrap up the workshop!
+
+---
+
+# 📧 Set Up Custom Domain Email
+Let's configure email for your custom domain.
+
+- **Cloudflare** offers **free email forwarding**!
+- You can also use services like Zoho Mail, Google Workspace, or Microsoft 365 for full email hosting.
+- For this workshop, we will use Cloudflare's email forwarding.
+
+
+<div class="flex flex-col mt-12 justify-start gap-2 text-sm bg-gray-900 p-2 border-l-4 border-solid border-gray-300 rounded">
+  <h4>Can I send email from my custom domain?</h4>
+  <div class="flex gap-2 items-center">
+     Yes, Gmail offers a way to send emails from your custom domain.
+     <img class="w-6" src="https://em-content.zobj.net/source/microsoft-teams/363/winking-face_1f609.png" />
+  </div>
+</div>
 
 ---
 
 # 🎉 Congratulations! You've Built:
 
-<v-clicks>
+<v-click>
 
 - ✅ **Secure Server** with proper SSH & firewall configuration
 - ✅ **Production Kubernetes cluster** running k3s
@@ -2162,7 +2264,7 @@ You did it! Let's recap and plan next steps.
 - ✅ **Domain & DNS** properly configured
 - ✅ **Monitoring & logging** basics
 
-</v-clicks>
+</v-click>
 
 <br>
 
@@ -2208,32 +2310,52 @@ You did it! Let's recap and plan next steps.
 </div>
 
 ---
+layout: two-cols
+---
 
-# 📚 Optional Take-Home Exercises
+# 📚 Exercises
 
-<v-clicks>
+<v-click>
 
 1. **🔄 Rolling Updates**
-   - Update your app and deploy via CI/CD
-   - Practice zero-downtime deployments
+- Update your app and deploy via CI/CD
+- Practice zero-downtime deployments
+
+
+<br/>
 
 2. **🗄 Add a Database**
-   - Deploy PostgreSQL or MySQL
-   - Connect your app to the database
+- Deploy PostgreSQL or MySQL
+- Connect your app to the database
+
+<br/>
 
 3. **📊 Advanced Monitoring**
-   - Install Prometheus & Grafana
-   - Set up custom dashboards
+- Install Prometheus & Grafana
+- Set up custom dashboards
+
+</v-click>
+
+::right::
+
+
+<v-click>
+
+<br/>
+<br/>
 
 4. **🔒 Secrets Management**
-   - Use Kubernetes secrets
-   - Try external secret management
+- Use Kubernetes secrets
+- Try external secret management
+
+
+<br/>
 
 5. **🌐 Multiple Environments**
-   - Create staging and production namespaces
-   - Set up environment-specific deployments
+- Create staging and production namespaces
+- Set up environment-specific deployments
 
-</v-clicks>
+</v-click>
 
 ---
 layout: center
@@ -2242,41 +2364,34 @@ class: text-center
 
 # ❓ Questions & Discussion
 
-<div class="text-xl text-gray-600 mb-8">
+<div class="text-xl text-gray-400 mb-8">
 What challenges did you face? What would you like to explore further?
 </div>
 
-<div class="flex justify-center gap-8">
+<div class="flex justify-center gap-8 mt-10">
   <div class="text-center">
-    <div class="text-3xl mb-2">🤝</div>
+    <div class="text-5xl mb-2">🤝</div>
     <div>Let's Connect</div>
   </div>
   <div class="text-center">
-    <div class="text-3xl mb-2">📚</div>
+    <div class="text-5xl mb-2">📚</div>
     <div>Keep Learning</div>
   </div>
   <div class="text-center">
-    <div class="text-3xl mb-2">🚀</div>
+    <div class="text-5xl mb-2">🚀</div>
     <div>Keep Shipping</div>
   </div>
 </div>
 
 ---
-layout: end
+layout: center
 class: text-center
 ---
 
 # Thank You! 
 
-## 🚢 You're now ready to ship production apps with Kubernetes!
+<br/>
+<br/>
 
-<div class="mt-8 text-gray-600">
-  Remember: The best way to learn is by doing. Keep experimenting and building!
-</div>
+https://github.com/sayjeyhi/presentation-k8s
 
-<div class="abs-br m-6 flex gap-2">
-  <a href="https://github.com/slidevjs/slidev" target="_blank" alt="GitHub"
-    class="text-xl icon-btn opacity-50 !border-none !hover:text-white">
-    <carbon-logo-github />
-  </a>
-</div>
