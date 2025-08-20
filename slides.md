@@ -760,42 +760,110 @@ Time to get our Kubernetes cluster running!
 
 ---
 
-# ⚙️ Install k3s
-
-## What is k3s?
+# What is k3s?
 
 <br/>
 
-<v-clicks>
+The **certified** Kubernetes distribution built for IoT & Edge computing
+
+<br />
 
 - 🪶 **Lightweight Kubernetes** - Perfect for single-node setups
 - 📦 **Batteries included** - Comes with ingress controller, DNS, etc.
 - 🚀 **Production ready** - Used by many companies
 - 🔧 **Easy to install** - Single command installation
 
-</v-clicks>
+---
 
-<br>
+# ⚙️ Install k3s
+It is simple!
 
-<v-click>
+https://k3s.io/
 
 ```bash
 # Install k3s (this may take a few minutes)
 curl -sfL https://get.k3s.io | sh -
+```
 
-# Check if it's running  
+<br/>
+
+### Check if it's running  
+
+```bash
 sudo systemctl status k3s
 ```
 
-</v-click>
+---
+
+# Check cluster
+
+## Allow `kubectl` to access k3s
+Lets check the state of k8s on your server
+
+
+- Set `KUBECONFIG`:
+
+```bash
+# Set KUBECONFIG environment variable
+echo "export KUBECONFIG=/etc/rancher/k3s/k3s.yaml" >> ~/.bashrc
+source ~/.bashrc
+```
+
+- Test resources:
+
+```bash
+kubectl get nodes
+kubectl get pods -A
+```
+
 
 ---
 
-# 🔗 Connect with kubectl
+# ✅ Verify Cluster
 
-## Step 1: Configure kubectl access
+## Check Everything Works
 
-<v-clicks>
+
+```bash
+# Check node status
+kubectl get nodes -o wide
+
+# Check system pods
+kubectl get pods -n kube-system
+
+# Check k3s components
+kubectl get all -n kube-system
+```
+
+
+Expected output should show:
+- ✅ Node in "Ready" status  
+- ✅ All system pods "Running"
+- ✅ traefik (ingress controller) running
+- ✅ coredns running
+
+
+---
+
+# 🎉 Success!
+
+<div class="bg-green-50 border-l-4 border-green-400 p-4 mt-4">
+  <p class="text-green-700">You now have a working Kubernetes cluster!</p>
+</div>
+
+Let's connect to it locally and check it from your local machine.
+
+---
+
+# Lens App
+
+https://k8slens.dev/
+
+<img src="/public/lens.png">
+
+---
+
+# Connect to cluster locally
 
 ```bash
 # On the server - get the kubeconfig
@@ -818,52 +886,12 @@ kubectl get nodes
 kubectl get pods --all-namespaces
 ```
 
-</v-clicks>
-
----
-
-# ✅ Verify Cluster
-
-## Step 2: Check Everything Works
-
-<v-clicks>
-
-```bash
-# Check node status
-kubectl get nodes -o wide
-
-# Check system pods
-kubectl get pods -n kube-system
-
-# Check k3s components
-kubectl get all -n kube-system
-```
-
-</v-clicks>
-
-<v-click>
-
-Expected output should show:
-- ✅ Node in "Ready" status  
-- ✅ All system pods "Running"
-- ✅ traefik (ingress controller) running
-- ✅ coredns running
-
-</v-click>
-
-<v-click>
-
-<div class="bg-green-50 border-l-4 border-green-400 p-4 mt-4">
-  <p class="text-green-800 font-semibold">🎉 Success!</p>
-  <p class="text-green-700">You now have a working Kubernetes cluster!</p>
-</div>
-
-</v-click>
-
 ---
 layout: section
 class: text-center
 ---
+
+Make sure your cluster is ready and you are connected to it locally ([step04-install-k3s.md](https://github.com/sayjeyhi/shipping-apps-zero-to-hero/blob/main/step04-install-k3s.md))
 
 <!--- Your turn to deploy! --->
 <div class="flex items-center justify-center gap-4">
@@ -1229,37 +1257,20 @@ Let's containerize our application!
 
 # 🐳 Build & Push Docker App
 
-## Step 1: Fork TempLate Repository
+## Clone the TempLate Repository (DO Not fork)
 
-<v-clicks>
-
-- 🍴 **Fork** the workshop repository to your GitHub account
-- 📥 **Clone** your fork locally
-- 📂 **Explore** the sample application structure
-
-</v-clicks>
-
-<v-click>
+<br/>
 
 ```bash
 # Clone your forked repository
 git clone https://github.com/sayjeyhi/calendar-app.git
-cd k8s-zero-to-hero# or index.js, depending on your template
 ```
 
-</v-click>
+If you fork the repository, you will not be able to push the image to the registry.
 
 ---
 
-# 📦 Write Dockerfile
-
-## Step 2: Create Production-Ready Dockerfile
-
-<v-clicks>
-
 ```dockerfile
-# syntax=docker/dockerfile:1.7
-
 FROM node:20-alpine AS base
 RUN npm i -g pnpm
 WORKDIR /app
@@ -1289,15 +1300,11 @@ ENV NODE_ENV=production PORT=3000 HOSTNAME=0.0.0.0
 CMD ["node", "server.js"]
 ```
 
-</v-clicks>
-
 ---
 
-# 🚀 Build & Push to Registry
+# 🚀 Build and Run
 
-## Step 3: Docker Build & Push
 
-<v-clicks>
 
 ```bash
 # Build your Docker image
@@ -1305,32 +1312,75 @@ docker build -t calendar-app .
 
 # Test locally
 docker run -p 3000:3000 calendar-app
+```
 
-# Login to Docker Hub (or GitHub Container Registry)
-docker login
+We should be able to access the app at `http://localhost:3000` now.
+We can do the same with `docker-compose`:
 
+```bash
+# Build and run with docker-compose
+docker-compose up --build
+```
 
+---
+
+docker-compose.yml
+```yaml
+version: '3.8'
+
+services:
+  calendar-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - HOSTNAME=0.0.0.0
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+```
+
+---
+
+# 🐳 Push to Docker Registry
+It is easier and better to use ghcr.io to push our images, but you can also use Docker Hub or a local registry.
+
+```bash 
+export CR_PAT=YOUR_TOKEN
+echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
+```
+
+Get a PAT with `write:packages` and `repo` permissions.
+
+```bash
+# Push to registry
+docker tag calendar-app:latest ghcr.io/sayjeyhi/test-image:latest
+docker push ghcr.io/sayjeyhi/test-image:latest
+```
+
+Local:
+```bash
 # Push to registry
 docker tag calendar-app:latest localhost:5000/calendar-app:latest
 docker push localhost:5000/calendar-app:latest
 ```
 
-</v-clicks>
-
-<v-click>
-
-<div class="bg-blue-50 border-l-4 border-blue-400 p-4 mt-4">
-  <p class="text-blue-800 font-semibold">💡 Alternative</p>
-  <p class="text-blue-700">You can also use GitHub Container Registry (ghcr.io) for free private images.</p>
-</div>
-
-</v-click>
 
 
 ---
 layout: section
 class: text-center
 ---
+
+Build and deploy your app image to test it ([step05-docker-base.md](https://github.com/sayjeyhi/shipping-apps-zero-to-hero/blob/main/step05-docker-base.md))
 
 <!--- Your turn to deploy! --->
 <div class="flex items-center justify-center gap-4">
