@@ -312,7 +312,7 @@ layout: section
 class: text-center
 ---
  
-🚀 Clone and Get ready
+🚀 Clone and Get ready ([step01-get-ready.md](https://github.com/sayjeyhi/shipping-apps-zero-to-hero/blob/main/step01-get-ready.md))
 
 ```bash
 git clone https://github.com/sayjeyhi/shipping-apps-zero-to-hero.git
@@ -333,7 +333,7 @@ class: text-center
 
 Let's get our infrastructure foundation ready!
 
-**09:30 – 10:15**
+**10:00 – 10:30**
 
 
 ---
@@ -396,13 +396,12 @@ the second parameter (1.1.1.1) is the DNS server you want to query instead of yo
 ---
 
 
-# 🖥 Provision Your Server
+# 🖥 Create a local test server
 
 
-## Create a local linux server
+#### Use **VirtualBox** to create a local **Ubuntu** server
 
-Use VirtualBox to create a local Ubuntu server.
-After downloading VirtualBox, create a new VM and choose Ubuntu server iso file to install it.
+After downloading VirtualBox, create a **new VM** and choose Ubuntu server **iso** file to install it.
 Then open it and check the IP address of your server:
 
 ```bash
@@ -452,6 +451,59 @@ apt update && apt upgrade -y
 
 ---
 
+# Create user
+
+Create a New User with Sudo Permissions
+
+```bash
+# Log in as root
+ssh root@IP_ADDRESS
+
+# Create a new user
+adduser workshop
+
+# Add the user to the sudo group
+usermod -aG sudo workshop
+
+# Test the new user
+su - workshop
+sudo apt update
+```
+
+**`-aG sudo`** means: 
+
+Append the user `workshop` to the sudo group without removing them from any other groups they already belong to.
+
+
+---
+
+# Use SSH
+**SSH (Secure SHell)** is a protocol for securely accessing remote computers.
+**Instead of password**, we will use SSH keys for authentication.
+
+- **Automatically** copy your SSH key to the server:
+```bash
+# local machine (generate SSH key if you don't have one):
+ssh-keygen -t ed25519 -C "your-email@example.com"
+
+# Copy public key to server
+ssh-copy-id root@YOUR_SERVER_IP
+```
+
+- Or **Manually** copy your SSH key to the server:
+```bash
+# local machine:
+cat ~/.ssh/id_ed25519.pub
+
+# copy the output and paste it into the server
+mkdir -p ~/.ssh
+echo "your-public-key-here" >> ~/.ssh/authorized_keys
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys
+```
+
+---
+
 
 # 🔗 Configure DNS
 
@@ -471,16 +523,26 @@ ping yourdomain.com
 ```
 
 
-<div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mt-4">
-  <p class="text-yellow-800 font-semibold">⏰ Note</p>
-  <p class="text-yellow-700">DNS changes can take up to 24 hours to fully propagate, but usually work within minutes with Cloudflare.</p>
+<v-click>
+
+
+<div class="flex flex-col mt-12 justify-start gap-2 text-sm bg-gray-900 p-2 border-l-4 border-solid border-gray-300 rounded">
+  <h4>⏰ &nbsp;How long will it take?</h4>
+  <div class="flex gap-2 items-center">
+    DNS changes can take up to 24 hours to fully propagate, but usually work within minutes with Cloudflare.
+  </div>
 </div>
+
+
+</v-click>
 
 
 ---
 layout: section
 class: text-center
 ---
+
+Get your domain and server ready ([step02-get-server.md](https://github.com/sayjeyhi/shipping-apps-zero-to-hero/blob/main/step02-get-server.md))
 
 <!-- Your turn -->
 <div class="flex items-center justify-center gap-4">
@@ -501,117 +563,174 @@ Security first! Let's lock down our server.
 
 ---
 
-# 🔒 Secure the Server
-
-## Step 1: SSH Key Authentication
-
-```bash
-# On your local machine - generate SSH key if you don't have one
-ssh-keygen -t ed25519 -C "your-email@example.com"
-
-# Copy public key to server
-ssh-copy-id root@YOUR_SERVER_IP
-
-# Or manually copy the key
-cat ~/.ssh/id_ed25519.pub
-```
-
-```bash
-# On the server - add your public key
-mkdir -p ~/.ssh
-echo "your-public-key-here" >> ~/.ssh/authorized_keys
-chmod 700 ~/.ssh
-chmod 600 ~/.ssh/authorized_keys
-```
-
-
----
-
 # 🛡 Disable Root Login & Enable Firewall
 
-## Step 2: Harden SSH Access
+## Harden SSH Access
 
-<v-clicks>
-
-```bash
-# Create a new user (recommended)
-adduser workshop
-usermod -aG sudo workshop
-
-# Edit SSH configuration
-nano /etc/ssh/sshd_config
-```
-
-```ini
-# Key changes in /etc/ssh/sshd_config
-PermitRootLogin no
-PasswordAuthentication no  
-PubkeyAuthentication yes
-Port 22  # or change to custom port like 2222
-```
 
 ```bash
+# Open SSH configuration file
+sudo nano /etc/ssh/sshd_config
+
+# Modify the following in the file:
+# PermitRootLogin no # Disable root login
+# PasswordAuthentication no  # Disable password based auth
+
 # Restart SSH service
-systemctl restart ssh
+sudo systemctl restart ssh
 ```
 
-</v-clicks>
+<div class="flex flex-col my-6 justify-start gap-2 text-sm bg-gray-900 p-2 border-l-4 border-solid border-gray-300 rounded">
+  <h4>⚠️ &nbsp;Alert!</h4>
+  <div class="flex gap-2 items-center">
+    DON`T CLOSE session, open another terminal, and test login:
+  </div>
+</div>
+
+
+
+```bash
+# Test SSH with new settings before logging out
+ssh test@IP_ADDRESS
+```
+
+<span class="text-xs">
+
+if you have created custom SSH key, you need to pass **`-i ~/.ssh/CUSTOM_SSH_KEY`** to the command above.
+
+</span>
 
 ---
 
-# 🔥 Setup Firewall (UFW)
+# 🔥 Uncomplicated Firewall (UFW)
 
 ## Step 3: Configure Basic Firewall
 
-<v-clicks>
-
-```bash
-# Enable UFW and set defaults
-ufw default deny incoming
-ufw default allow outgoing
-
-# Allow essential ports
-ufw allow ssh       # or custom port: ufw allow 2222
-ufw allow 80/tcp    # HTTP
-ufw allow 443/tcp   # HTTPS
-ufw allow 6443/tcp  # Kubernetes API
-
-# Enable firewall
-ufw --force enable
-
-# Check status
-ufw status verbose
-```
-
-</v-clicks>
-
 <v-click>
 
-<div class="bg-red-50 border-l-4 border-red-400 p-4 mt-4">
-  <p class="text-red-800 font-semibold">⚠️ Critical</p>
-  <p class="text-red-700">Test SSH access from a new terminal before closing your current session!</p>
-</div>
+```bash
+# Install UFW if not already installed
+sudo apt install ufw
+```
+
+```bash
+# Allow necessary ports
+sudo ufw allow OpenSSH    # SSH
+sudo ufw allow 80/tcp     # HTTP
+sudo ufw allow 443/tcp    # HTTPS
+```
+```bash
+# Allow Kubernetes ports
+sudo ufw allow 6443/tcp #apiserver
+sudo ufw allow from 10.42.0.0/16 to any #pods
+sudo ufw allow from 10.43.0.0/16 to any #services
+```
+```bash
+# Enable UFW
+sudo ufw enable
+
+# Check UFW status
+sudo ufw status
+```
 
 </v-click>
-
-
----
-
-# 🔥 Setup Fail2Ban
-
-
 
 ---
 
 # Base network
 
 
+<img src="/public/route-trace.png" />
+
+
 ---
 
-# IP tables & Fail2Ban
+# 🔥 Setup Fail2Ban
+https://github.com/fail2ban/fail2ban
+
+<v-clicks>
+
+```bash
+# Install Fail2Ban
+sudo su -
+sudo apt update
+sudo apt install fail2ban
+```
+
+```bash
+# Check if it is running
+sudo systemctl status fail2ban
+sudo tail -f /var/log/auth.log
+```
+
+Check current filters:
+
+
+```bash
+cd /etc/fail2ban/filter.d
+ls -l
+```
+
+Check current jails:
+
+```bash
+cat /etc/fail2ban/jail.conf
+```
+
+</v-clicks>
+
+---
+
+# Custom SSH Jail
+if you don't want to disable password authentication
+
+```bash
+tee /etc/fail2ban/jail.d/sshd.local > /dev/null <<'EOF'
+[sshd]
+enabled = true
+port = 22
+logpath = /var/log/auth.log
+maxretry = 3
+findtime = 30
+bantime = 300
+ignoreip = 127.0.0.1 ::1 192.168.1.0/24
+EOF
+```
+
+Do not block for a long time, since it can add unnecessary load to the server firewall.
+
+
+---
+
+# IP tables & NF tables
+
+| Feature            | **iptables**                                                      | **nftables**                                              |
+|--------------------|-------------------------------------------------------------------|-----------------------------------------------------------|
+| **Introduced**     | Legacy (Linux 2.4, \~2001)                                        | Modern replacement (Linux 3.13, 2014)                     |
+| **Backend**        | Separate tools (`iptables`, `ip6tables`, `arptables`, `ebtables`) | Unified framework (`nft`) handles IPv4, IPv6, ARP, bridge |
+| **Performance**    | Less efficient (multiple hooks, chains)                           | Faster (single ruleset engine, reduced duplication)       |
+| **Syntax**         | Verbose, rule-by-rule                                             | More concise, supports sets, maps, and verdict chains     |
+| **Extensibility**  | Limited, harder to maintain                                       | Extensible, cleaner kernel API                            |
+| **Future Support** | Deprecated, still maintained for legacy                           | Actively developed, future standard                       |
 
 
 
+```bash
+# Check current iptables rules
+sudo iptables -L -n -v
+# Check current nftables rules
+sudo nft list ruleset
+```
+
+Adding a rule to block a specific IP address:
+
+```bash
+# Using iptables
+sudo iptables -A INPUT -s
+
+# Using nftables
+sudo nft add rule ip filter input ip saddr
+```
 
 
 ---
@@ -620,9 +739,149 @@ class: text-center
 ---
 
 <!-- Your turn -->
+
+Let's secure the servers ([step03-harden-server.md](https://github.com/sayjeyhi/shipping-apps-zero-to-hero/blob/main/step03-harden-server.md))
+
 <div class="flex items-center justify-center gap-4">
   <img class="w-1/2" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2Rrb2Zyc2t4dzR1djN6bzNhZzdsNXNvYWFlMGltbzRlb2I5ZndkeCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ryuSzNRzZbYikfRtIJ/giphy.gif" />
 </div>
+
+---
+layout: section
+class: text-center
+---
+
+### ⚙️ Step 4
+# Install Kubernetes
+
+Time to get our Kubernetes cluster running!
+
+**11:00 – 12:00**
+
+---
+
+# ⚙️ Install k3s
+
+## What is k3s?
+
+<br/>
+
+<v-clicks>
+
+- 🪶 **Lightweight Kubernetes** - Perfect for single-node setups
+- 📦 **Batteries included** - Comes with ingress controller, DNS, etc.
+- 🚀 **Production ready** - Used by many companies
+- 🔧 **Easy to install** - Single command installation
+
+</v-clicks>
+
+<br>
+
+<v-click>
+
+```bash
+# Install k3s (this may take a few minutes)
+curl -sfL https://get.k3s.io | sh -
+
+# Check if it's running  
+sudo systemctl status k3s
+```
+
+</v-click>
+
+---
+
+# 🔗 Connect with kubectl
+
+## Step 1: Configure kubectl access
+
+<v-clicks>
+
+```bash
+# On the server - get the kubeconfig
+sudo cat /etc/rancher/k3s/k3s.yaml
+
+# Copy this content to your local machine
+# Replace 127.0.0.1 with your server IP
+```
+
+```bash
+# On your local machine
+mkdir -p ~/.kube
+nano ~/.kube/config
+# Paste the k3s.yaml content here (with server IP updated)
+```
+
+```bash
+# Test connection
+kubectl get nodes
+kubectl get pods --all-namespaces
+```
+
+</v-clicks>
+
+---
+
+# ✅ Verify Cluster
+
+## Step 2: Check Everything Works
+
+<v-clicks>
+
+```bash
+# Check node status
+kubectl get nodes -o wide
+
+# Check system pods
+kubectl get pods -n kube-system
+
+# Check k3s components
+kubectl get all -n kube-system
+```
+
+</v-clicks>
+
+<v-click>
+
+Expected output should show:
+- ✅ Node in "Ready" status  
+- ✅ All system pods "Running"
+- ✅ traefik (ingress controller) running
+- ✅ coredns running
+
+</v-click>
+
+<v-click>
+
+<div class="bg-green-50 border-l-4 border-green-400 p-4 mt-4">
+  <p class="text-green-800 font-semibold">🎉 Success!</p>
+  <p class="text-green-700">You now have a working Kubernetes cluster!</p>
+</div>
+
+</v-click>
+
+---
+layout: section
+class: text-center
+---
+
+<!--- Your turn to deploy! --->
+<div class="flex items-center justify-center gap-4">
+  <img class="w-1/2" src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW1yemk0bm5nZ2RvNTl1bXpqam42ODM0d2k4Z25wdm9qbHM0cmFxciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/gkHbTdyogvE6Iuul7X/giphy.gif" />
+</div>
+
+
+---
+layout: section
+class: text-center
+---
+
+## 🍕 
+# Lunch Break
+Refuel and get ready for the deployment phase!
+
+**We will start at 13:00**
+
 
 ---
 
@@ -958,142 +1217,6 @@ layout: section
 class: text-center
 ---
 
-### ⚙️ Step 5
-# Install Kubernetes
-
-Time to get our Kubernetes cluster running!
-
-**11:00 – 12:00**
-
----
-
-# ⚙️ Install k3s
-
-## What is k3s?
-
-<br/>
-
-<v-clicks>
-
-- 🪶 **Lightweight Kubernetes** - Perfect for single-node setups
-- 📦 **Batteries included** - Comes with ingress controller, DNS, etc.
-- 🚀 **Production ready** - Used by many companies
-- 🔧 **Easy to install** - Single command installation
-
-</v-clicks>
-
-<br>
-
-<v-click>
-
-```bash
-# Install k3s (this may take a few minutes)
-curl -sfL https://get.k3s.io | sh -
-
-# Check if it's running  
-sudo systemctl status k3s
-```
-
-</v-click>
-
----
-
-# 🔗 Connect with kubectl
-
-## Step 1: Configure kubectl access
-
-<v-clicks>
-
-```bash
-# On the server - get the kubeconfig
-sudo cat /etc/rancher/k3s/k3s.yaml
-
-# Copy this content to your local machine
-# Replace 127.0.0.1 with your server IP
-```
-
-```bash
-# On your local machine
-mkdir -p ~/.kube
-nano ~/.kube/config
-# Paste the k3s.yaml content here (with server IP updated)
-```
-
-```bash
-# Test connection
-kubectl get nodes
-kubectl get pods --all-namespaces
-```
-
-</v-clicks>
-
----
-
-# ✅ Verify Cluster
-
-## Step 2: Check Everything Works
-
-<v-clicks>
-
-```bash
-# Check node status
-kubectl get nodes -o wide
-
-# Check system pods
-kubectl get pods -n kube-system
-
-# Check k3s components
-kubectl get all -n kube-system
-```
-
-</v-clicks>
-
-<v-click>
-
-Expected output should show:
-- ✅ Node in "Ready" status  
-- ✅ All system pods "Running"
-- ✅ traefik (ingress controller) running
-- ✅ coredns running
-
-</v-click>
-
-<v-click>
-
-<div class="bg-green-50 border-l-4 border-green-400 p-4 mt-4">
-  <p class="text-green-800 font-semibold">🎉 Success!</p>
-  <p class="text-green-700">You now have a working Kubernetes cluster!</p>
-</div>
-
-</v-click>
-
----
-layout: section
-class: text-center
----
-
-<!--- Your turn to deploy! --->
-<div class="flex items-center justify-center gap-4">
-  <img class="w-1/2" src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW1yemk0bm5nZ2RvNTl1bXpqam42ODM0d2k4Z25wdm9qbHM0cmFxciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/gkHbTdyogvE6Iuul7X/giphy.gif" />
-</div>
-
-
----
-layout: section
-class: text-center
----
-
-## 🍕 
-# Lunch Break
-Refuel and get ready for the deployment phase!
-
-**We will start at 13:00**
-
----
-layout: section
-class: text-center
----
-
 ### 🐳 Step 5
 # Build & Push Docker App
 
@@ -1120,12 +1243,8 @@ Let's containerize our application!
 
 ```bash
 # Clone your forked repository
-git clone https://github.com/YOUR_USERNAME/k8s-zero-to-hero.git
-cd k8s-zero-to-hero
-
-# Look at the app structure
-ls -la
-cat app.py  # or index.js, depending on your template
+git clone https://github.com/sayjeyhi/calendar-app.git
+cd k8s-zero-to-hero# or index.js, depending on your template
 ```
 
 </v-click>
@@ -1139,30 +1258,35 @@ cat app.py  # or index.js, depending on your template
 <v-clicks>
 
 ```dockerfile
-# Example for Node.js app
-FROM node:18-alpine AS builder
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci --only=production
+# syntax=docker/dockerfile:1.7
 
-FROM node:18-alpine AS runtime
+FROM node:20-alpine AS base
+RUN npm i -g pnpm
 WORKDIR /app
-COPY --from=builder /app/node_modules ./node_modules
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
 COPY . .
+
+FROM base AS builder
+RUN pnpm build
+
+FROM node:20-alpine AS runner
+RUN npm i -g pnpm
+WORKDIR /app
+
+# Create non-root user/group with fixed IDs
+RUN addgroup -S -g 1001 nodejs \
+ && adduser -S -u 1001 -G nodejs calendar-app
+
+# Copy build output (use numeric chown to avoid name lookup issues)
+COPY --from=builder --chown=1001:1001 /app/.next/standalone ./
+COPY --from=builder --chown=1001:1001 /app/.next/static ./.next/static
+COPY --from=builder --chown=1001:1001 /app/public ./public
+
+USER 1001:1001
 EXPOSE 3000
-USER node
-CMD ["node", "index.js"]
-```
-
-```dockerfile
-# Example for Python app  
-FROM python:3.11-slim
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-COPY . .
-EXPOSE 8000
-CMD ["python", "app.py"]
+ENV NODE_ENV=production PORT=3000 HOSTNAME=0.0.0.0
+CMD ["node", "server.js"]
 ```
 
 </v-clicks>
@@ -1177,16 +1301,18 @@ CMD ["python", "app.py"]
 
 ```bash
 # Build your Docker image
-docker build -t your-username/workshop-app:v1.0.0 .
+docker build -t calendar-app .
 
 # Test locally
-docker run -p 8000:8000 your-username/workshop-app:v1.0.0
+docker run -p 3000:3000 calendar-app
 
 # Login to Docker Hub (or GitHub Container Registry)
 docker login
 
+
 # Push to registry
-docker push your-username/workshop-app:v1.0.0
+docker tag calendar-app:latest localhost:5000/calendar-app:latest
+docker push localhost:5000/calendar-app:latest
 ```
 
 </v-clicks>
@@ -1690,7 +1816,7 @@ kubectl get ingress
 
 # 🧪 Test Access
 
-## Step 4: Verify Deployment
+## Step 6: Verify Deployment
 
 <v-clicks>
 
@@ -1725,12 +1851,167 @@ curl -H "Host: yourdomain.com" http://YOUR_SERVER_IP
 
 </v-click>
 
+
 ---
 layout: section
 class: text-center
 ---
 
-### 🔐 Step 7
+### 🤖 Step 7
+# Set Up CI/CD
+
+Automate all the things!
+
+**15:15 – 16:00**
+
+---
+
+# 🤖 Set Up CI/CD
+
+## Step 1: Create GitHub Actions Workflow
+
+<v-clicks>
+
+```yaml
+# .github/workflows/deploy.yml
+name: Build and Deploy
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      
+    steps:
+    - uses: actions/checkout@v4
+```
+
+</v-clicks>
+
+---
+
+# 🔨 Build & Push Steps
+
+## Step 2: Docker Build in Actions
+
+<v-clicks>
+
+```yaml
+    - name: Log in to Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Extract metadata
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        tags: |
+          type=ref,event=branch
+          type=ref,event=pr
+          type=sha
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+```
+
+</v-clicks>
+
+---
+
+# 🚀 Auto Deploy Step
+
+## Step 3: Deploy to Kubernetes
+
+<v-clicks>
+
+```yaml
+    - name: Deploy to Kubernetes
+      if: github.ref == 'refs/heads/main'
+      run: |
+        # Install kubectl
+        curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+        chmod +x kubectl
+        sudo mv kubectl /usr/local/bin/
+        
+        # Configure kubectl
+        mkdir -p ~/.kube
+        echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > ~/.kube/config
+        
+        # Update deployment with new image
+        kubectl set image deployment/workshop-app workshop-app=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+        
+        # Wait for rollout
+        kubectl rollout status deployment/workshop-app
+```
+
+</v-clicks>
+
+---
+
+# 🔑 Configure Secrets
+
+## Step 4: Add Repository Secrets
+
+In your GitHub repository settings:
+
+<v-clicks>
+
+1. **Go to Settings → Secrets and Variables → Actions**
+
+2. **Add secrets:**
+  - `KUBE_CONFIG`: Your base64-encoded kubeconfig file
+
+</v-clicks>
+
+<v-click>
+
+```bash
+# On your local machine
+cat ~/.kube/config | base64 -w 0
+# Copy this output to GitHub secret KUBE_CONFIG
+```
+
+</v-click>
+
+<v-click>
+
+```bash
+# Test the workflow
+git add .
+git commit -m "Add CI/CD pipeline"  
+git push origin main
+
+# Watch the action run
+# Visit: https://github.com/your-username/your-repo/actions
+```
+
+</v-click>
+
+---
+layout: section
+class: text-center
+---
+
+### 🔐 Step 8
 # Add HTTPS with cert-manager
 
 Let's secure our app with automatic SSL certificates!
@@ -1972,166 +2253,66 @@ layout: section
 class: text-center
 ---
 
-### 🤖 Step 8
-# Set Up CI/CD
+### 📊 Step 9
+# Helm Package Manager
+Let's simplify our deployments with Helm!
 
-Automate all the things!
-
-**15:15 – 16:00**
-
----
-
-# 🤖 Set Up CI/CD
-
-## Step 1: Create GitHub Actions Workflow
-
-<v-clicks>
-
-```yaml
-# .github/workflows/deploy.yml
-name: Build and Deploy
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
-
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-      
-    steps:
-    - uses: actions/checkout@v4
-```
-
-</v-clicks>
-
----
-
-# 🔨 Build & Push Steps
-
-## Step 2: Docker Build in Actions
-
-<v-clicks>
-
-```yaml
-    - name: Log in to Container Registry
-      uses: docker/login-action@v3
-      with:
-        registry: ${{ env.REGISTRY }}
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Extract metadata
-      id: meta
-      uses: docker/metadata-action@v5
-      with:
-        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-        tags: |
-          type=ref,event=branch
-          type=ref,event=pr
-          type=sha
-
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v5
-      with:
-        context: .
-        push: true
-        tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
-```
-
-</v-clicks>
-
----
-
-# 🚀 Auto Deploy Step
-
-## Step 3: Deploy to Kubernetes
-
-<v-clicks>
-
-```yaml
-    - name: Deploy to Kubernetes
-      if: github.ref == 'refs/heads/main'
-      run: |
-        # Install kubectl
-        curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-        chmod +x kubectl
-        sudo mv kubectl /usr/local/bin/
-        
-        # Configure kubectl
-        mkdir -p ~/.kube
-        echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > ~/.kube/config
-        
-        # Update deployment with new image
-        kubectl set image deployment/workshop-app workshop-app=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
-        
-        # Wait for rollout
-        kubectl rollout status deployment/workshop-app
-```
-
-</v-clicks>
-
----
-
-# 🔑 Configure Secrets
-
-## Step 4: Add Repository Secrets
-
-In your GitHub repository settings:
-
-<v-clicks>
-
-1. **Go to Settings → Secrets and Variables → Actions**
-
-2. **Add secrets:**
-   - `KUBE_CONFIG`: Your base64-encoded kubeconfig file
-
-</v-clicks>
-
-<v-click>
-
-```bash
-# On your local machine
-cat ~/.kube/config | base64 -w 0
-# Copy this output to GitHub secret KUBE_CONFIG
-```
-
-</v-click>
-
-<v-click>
-
-```bash
-# Test the workflow
-git add .
-git commit -m "Add CI/CD pipeline"  
-git push origin main
-
-# Watch the action run
-# Visit: https://github.com/your-username/your-repo/actions
-```
-
-</v-click>
+**16:00 – 16:30**
 
 ---
 layout: section
 class: text-center
 ---
 
-### 📊 Step 9
+### 📊 Step 10
+# Free Email Setup
+
+Set up your custom domain email and wrap up the workshop!
+
+**16:00 – 16:30**
+
+---
+
+# 📧 Set Up Custom Domain Email
+Let's configure email for your custom domain.
+
+- **Cloudflare** offers **free email forwarding**!
+- You can also use services like Zoho Mail, Google Workspace, or Microsoft 365 for full email hosting.
+- For this workshop, we will use Cloudflare's email forwarding.
+
+
+<div class="flex flex-col mt-12 justify-start gap-2 text-sm bg-gray-900 p-2 border-l-4 border-solid border-gray-300 rounded">
+  <h4>Can I send email from my custom domain?</h4>
+  <div class="flex gap-2 items-center">
+     Yes, Gmail offers a way to send emails from your custom domain.
+     <img class="w-6" src="https://em-content.zobj.net/source/microsoft-teams/363/winking-face_1f609.png" />
+  </div>
+</div>
+
+---
+layout: section
+class: text-center
+---
+
+### 📊 Step 11
+# Rancher setup
+
+Keep an eye on your production app!
+
+**16:00 – 16:30**
+
+---
+layout: section
+class: text-center
+---
+
+### 📊 Step 12
 # Monitoring & Logs
 
 Keep an eye on your production app!
 
 **16:00 – 16:30**
+
 
 ---
 
@@ -2221,34 +2402,6 @@ kubectl port-forward -n kube-system deployment/traefik 9000:9000
 </div>
 
 </v-click>
-
----
-layout: section
-class: text-center
----
-
-### 💬 Step 10 
-# Email setup, Wrap-Up
-
-Set up your custom domain email and wrap up the workshop!
-
----
-
-# 📧 Set Up Custom Domain Email
-Let's configure email for your custom domain.
-
-- **Cloudflare** offers **free email forwarding**!
-- You can also use services like Zoho Mail, Google Workspace, or Microsoft 365 for full email hosting.
-- For this workshop, we will use Cloudflare's email forwarding.
-
-
-<div class="flex flex-col mt-12 justify-start gap-2 text-sm bg-gray-900 p-2 border-l-4 border-solid border-gray-300 rounded">
-  <h4>Can I send email from my custom domain?</h4>
-  <div class="flex gap-2 items-center">
-     Yes, Gmail offers a way to send emails from your custom domain.
-     <img class="w-6" src="https://em-content.zobj.net/source/microsoft-teams/363/winking-face_1f609.png" />
-  </div>
-</div>
 
 ---
 
